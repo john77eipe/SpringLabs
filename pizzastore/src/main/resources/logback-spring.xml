@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+
+    <logger name="com.springlabs.pizzastore" level="DEBUG"/>
+
+	<logger name="org.springframework" level="DEBUG"/>
+
+
+</configuration>
