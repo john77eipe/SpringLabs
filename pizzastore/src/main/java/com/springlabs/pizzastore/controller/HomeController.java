@@ -7,13 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/welcome")
 public class HomeController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping
     public String getAllPizzas() {
+		// Note that you don't need a ModelAndView bean. Spring will take care of it if it's 
+		// just a simple forward.
 		logger.info("Welcome controller");
 		return "welcome";
     }

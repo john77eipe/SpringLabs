@@ -3,7 +3,8 @@ package com.springlabs.pizzastore.config;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
- * This class is not needed as i have given default values it's spring boot
+ * This class is not needed as I was going with default values.
+ * it's spring boot
  * so it initializes these with defaults anyways 
  * @author johne
  *

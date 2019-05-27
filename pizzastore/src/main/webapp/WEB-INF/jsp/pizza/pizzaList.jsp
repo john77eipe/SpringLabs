@@ -16,6 +16,9 @@
 
 		<main role="main" class="inner cover">
 			<!-- Pizza list goes here -->
+			<c:forEach var="pizza" items="${pizzas}">
+                <c:out value="${pizza.name}"/>
+            </c:forEach>
 		</main>
 
 		<jsp:include page="../fragments/footer.jsp" />

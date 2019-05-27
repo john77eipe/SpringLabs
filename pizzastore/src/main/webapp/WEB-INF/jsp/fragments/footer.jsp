@@ -2,8 +2,8 @@
 <footer class="mastfoot mt-auto">
 	<div class="inner">
 		<p>
-			Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>,
-			by <a href="https://twitter.com/john77eipe">@john77eipe</a>.
+			PizzaStore developed and maintained</a>,
+			by <a href="http://developers-notebook.info">john77eipe</a>.
 		</p>
 	</div>
 </footer>
