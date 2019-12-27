@@ -19,20 +19,15 @@
         
 		<div class="row">
 			<div class="leftcolumn">
-				<c:forEach var="pizza" items="${pizzas}">
-					<div class="card">
-				    	<h2><a href="/pizza/${pizza.id}"><c:out value="${pizza.name}"/></a></h2>
-				      	<h5>Price: $ ${pizza.price}</h5>
-				    </div>
-	    		</c:forEach>
-  			</div>
-			<div class="rightcolumn">
 				<div class="card">
-					<h2>About Me</h2>
-					<div class="fakeimg" style="height: 100px;">Image</div>
-					<p>Some text about me</p>
+			    	<h2><a href="/pizza/${pizza.id}"><c:out value="${pizza.name}"/></a></h2>
+			      	<h5>Price: $ ${pizza.price}</h5>
+			      	<div class="fakeimg" style="height:200px;">Image</div>
+			      	<h3>Category: ${pizza.category.category}</h3>
+				    <p>Description:</p>
+				    <p>${pizza.description}</p>
 				</div>
-			</div>
+  			</div>
 		</div>
 
 		<jsp:include page="../fragments/footer.jsp" />

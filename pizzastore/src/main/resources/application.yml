@@ -1,0 +1,9 @@
+# database init, supports mysql too
+database: hsqldb
+spring:
+    datasource:
+        data: classpath*:db/${database}/data.sql
+        schema: classpath*:db/${database}/schema.sql
+    jpa:
+        hibernate:
+            ddl-auto: none

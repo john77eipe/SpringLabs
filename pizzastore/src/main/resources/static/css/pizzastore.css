@@ -1,115 +1,102 @@
-/*
- * Globals
- */
-
-/* Links */
-a,
-a:focus,
-a:hover {
-  color: #fff;
+* {
+  box-sizing: border-box;
 }
 
-/* Custom default button */
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
-  background-color: #fff;
-  border: .05rem solid #fff;
-}
-
-
-/*
- * Base structure
- */
-
-html,
 body {
-  height: 100%;
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  text-align: center;
+  background: white;
+}
+
+.header h1 {
+  font-size: 50px;
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
   background-color: #333;
 }
 
-body {
-  display: -ms-flexbox;
-  display: flex;
-  color: #fff;
-  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }
 
-.cover-container {
-  max-width: 42em;
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
 }
 
-
-/*
- * Header
- */
-.masthead {
-  margin-bottom: 2rem;
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 75%;
 }
 
-.masthead-brand {
-  margin-bottom: 0;
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  background-color: #f1f1f1;
+  padding-left: 20px;
 }
 
-.nav-masthead .nav-link {
-  padding: .25rem 0;
-  font-weight: 700;
-  color: rgba(255, 255, 255, .5);
-  background-color: transparent;
-  border-bottom: .25rem solid transparent;
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
 }
 
-.nav-masthead .nav-link:hover,
-.nav-masthead .nav-link:focus {
-  border-bottom-color: rgba(255, 255, 255, .25);
+/* Add a card effect for articles */
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
 }
 
-.nav-masthead .nav-link + .nav-link {
-  margin-left: 1rem;
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
-.nav-masthead .active {
-  color: #fff;
-  border-bottom-color: #fff;
+/* Footer */
+.footer {
+  padding: 5px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 50px;
 }
 
-@media (min-width: 48em) {
-  .masthead-brand {
-    float: left;
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
   }
-  .nav-masthead {
-    float: right;
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+  .topnav a {
+    float: none;
+    width: 100%;
   }
-}
-
-
-/*
- * Cover
- */
-.cover {
-  width: 50%;
-  height: 100%;
-  margin: auto;
-  padding: 10px;
-  position: relative;
-}
-.cover .btn-lg {
-  padding: .75rem 1.25rem;
-  font-weight: 700;
-}
-/**
-.inner {
-  background-image: url('/images/pizza_banner.jpg');
-  opacity: 0.5;
-  filter: alpha(opacity=50); /* For IE8 and earlier */
-}
-*/
-/*
- * Footer
- */
-.mastfoot {
-  color: rgba(255, 255, 255, .5);
 }
