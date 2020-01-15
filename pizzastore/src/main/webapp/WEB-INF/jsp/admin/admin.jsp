@@ -36,6 +36,12 @@
 			        </c:forEach>
 			    </select>
 				<br><br>
+				Pizza Quantity:&nbsp;
+				<input type="text" name="pizza_quantity" value="100">
+				<br><br>
+				Pizza Tax:&nbsp;
+				<input type="text" name="pizza_tax" value="0">
+				<br><br>
 				<input type="submit" value="Submit">
 			</form> 
 		</div>

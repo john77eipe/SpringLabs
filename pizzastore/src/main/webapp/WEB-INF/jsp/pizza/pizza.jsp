@@ -24,6 +24,11 @@
 			      	<h5>Price: $ ${pizza.price}</h5>
 			      	<div class="fakeimg" style="height:200px;">Image</div>
 			      	<h3>Category: ${pizza.category.category}</h3>
+			      	<h3>Other Categories: 
+			      		<c:forEach var="secondaryCategory" items="${pizza.secondaryCategories}" varStatus="loop">
+			      			${secondaryCategory.category} ${!loop.last ? ',' : ''}
+			      		</c:forEach>
+			      	</h3>
 				    <p>Description:</p>
 				    <p>${pizza.description}</p>
 				</div>

@@ -3,7 +3,7 @@ package com.springlabs.pizzastore.service;
 import java.util.List;
 
 import com.springlabs.pizzastore.domain.Pizza;
-import com.springlabs.pizzastore.domain.PizzaCategory;
+import com.springlabs.pizzastore.domain.Category;
 
 public interface PizzaService {
 	
@@ -32,13 +32,13 @@ public interface PizzaService {
      * List all Pizza categories
      * @return
      */
-	List<PizzaCategory> findAllPizzaCategories();
+	List<Category> findAllPizzaCategories();
 
 	/**
 	 * Find one single Category from Id
 	 * @param categoryId
 	 * @return
 	 */
-	PizzaCategory getPizzaCategory(long categoryId);
+	Category getPizzaCategory(long categoryId);
 
 }

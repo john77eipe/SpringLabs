@@ -1,9 +1,36 @@
-# database init, supports mysql too
-database: hsqldb
+# database init, supports hsql and mysql
+
+
+#-------------------------------------------------------------------------------
+# HSQL Settings
+
+# jdbc:
+#    driverClassName: org.hsqldb.jdbcDriver
+#    url: jdbc:hsqldb:mem:store
+#    username: sa
+#    password:
+
+# Property that determines which database to use with an AbstractJpaVendorAdapter
+# jpa:
+#    database: HSQL
+
+
+#-------------------------------------------------------------------------------
+# MySQL Settings
+
 spring:
-    datasource:
-        data: classpath*:db/${database}/data.sql
-        schema: classpath*:db/${database}/schema.sql
     jpa:
-        hibernate:
-            ddl-auto: none
+       database: mysql
+       show-sql: true
+       format-sql : true
+       hibernate:
+          ddl-auto: none
+    datasource:
+       platform: mysql
+       url: jdbc:mysql://localhost:3306/store
+       username: root
+       password: Passw0rd
+       driverClassName: com.mysql.jdbc.Driver
+       initialization-mode: always
+       data: classpath*:db/mysql/data.sql
+       schema: classpath*:db/mysql/schema.sql

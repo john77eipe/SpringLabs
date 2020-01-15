@@ -1,30 +1,26 @@
 package com.springlabs.pizzastore.domain;
 
 
-import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(name="pizza")
+@Table(name="tbl_pizza")
 public class Pizza {
 	
-	public Pizza() {
-	}
-	
-    public Pizza(String pizza_name, String pizza_desc, String pizza_price) {
-		name = pizza_name;
-		description = pizza_desc;
-		price = Float.valueOf(pizza_price);
-	}
-	
-	public Pizza(String pizza_name, String pizza_desc, String pizza_price, PizzaCategory existing_pizzaCategory) {
-		name = pizza_name;
-		description = pizza_desc;
-		price = Float.valueOf(pizza_price);
-		category = existing_pizzaCategory;
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,19 +29,50 @@ public class Pizza {
 
     @NotNull
     @Size(min = 2)
-    @Column(name = "name")
+    @Column(name = "`name`")
     private String name;
 
     @Column(name = "price")
-    private Float price;
+    private BigDecimal price;
 
-    @Column(name = "description")
+    @Column(name = "`desc`")
     private String description;
     
     @ManyToOne
-    @JoinColumn(name = "category")
-    private PizzaCategory category;
+    @JoinColumn(name = "category_default")
+    private Category category; 
     
+    @Column(name = "quantity")
+    private Long quantity;
+    
+    @Column(name = "tax")
+    private BigDecimal tax;
+    
+    @Column(name = "on_sale")
+    private Integer onsale;
+    
+    @Transient
+    private List<Category> secondaryCategories;
+    
+    public Pizza() {
+	}
+	
+    public Pizza(String name, String description, BigDecimal price) {
+		this.name = name;
+		this.description = description;
+		this.price = price;
+	}
+	
+	public Pizza(String name, String description, BigDecimal price, Category category, Long quantity, BigDecimal tax) {
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.category = category;
+		this.quantity = quantity;
+		this.tax = tax;
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -62,11 +89,11 @@ public class Pizza {
         this.name = name;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return this.price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -78,14 +105,48 @@ public class Pizza {
 		this.description = description;
 	}
 
-	public PizzaCategory getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(PizzaCategory category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
+	
 
+	public Long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
+	}
+
+	public BigDecimal getTax() {
+		return tax;
+	}
+
+	public void setTax(BigDecimal tax) {
+		this.tax = tax;
+	}
+
+	public Integer getOnsale() {
+		return onsale;
+	}
+
+	public void setOnsale(Integer onsale) {
+		this.onsale = onsale;
+	}
+	
+	public List<Category> getSecondaryCategories() {
+		return secondaryCategories;
+	}
+
+	public void setSecondaryCategories(List<Category> secondaryCategories) {
+		this.secondaryCategories = secondaryCategories;
+	}
+
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -99,7 +160,17 @@ public class Pizza {
 		builder.append(description);
 		builder.append(", category=");
 		builder.append(category);
+		builder.append(", quantity=");
+		builder.append(quantity);
+		builder.append(", tax=");
+		builder.append(tax);
+		builder.append(", onsale=");
+		builder.append(onsale);
+		builder.append(", secondaryCategories=");
+		builder.append(secondaryCategories);
 		builder.append("]");
 		return builder.toString();
 	}
+
+
 }

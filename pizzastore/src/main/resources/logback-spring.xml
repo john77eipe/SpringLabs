@@ -11,5 +11,6 @@
 
 	<logger name="org.springframework" level="DEBUG"/>
 
+	<logger name="org.hibernate.type" level="TRACE"/>
 
 </configuration>

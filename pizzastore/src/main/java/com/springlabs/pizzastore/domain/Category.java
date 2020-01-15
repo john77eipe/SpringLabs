@@ -1,15 +1,11 @@
 package com.springlabs.pizzastore.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 
 @Entity
-@Table(name="pizza_category")
-public class PizzaCategory {
+@Table(name="tbl_category")
+public class Category {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +34,7 @@ public class PizzaCategory {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("PizzaCategory [id=");
+		builder.append("ProductCategory [id=");
 		builder.append(id);
 		builder.append(", category=");
 		builder.append(category);
