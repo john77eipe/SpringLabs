@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/staticFiles"></th:block>
+
+
+<body>
+	<div class="container">
+	
+		<th:block th:include="fragments/adminHeader"></th:block>
+		
+		<br><br><br>
+	
+		<div class="row">
+			<div class="leftcolumn">
+				<form action="/pizza/save" method="POST">
+					Pizza Title:&nbsp;
+					<input type="text" name="pizza_name" value="Amazing Pizza">
+					<br><br>
+					Pizza Description:&nbsp;
+					<input type="text" name="pizza_desc" value="The Best Pizza in the world">
+					<br><br>
+					Pizza Price:&nbsp;
+					<input type="text" name="pizza_price" value="10">
+					<br><br>
+					Select a Category:&nbsp;
+			    	<select name="pizza_cat" th:object="${listCategory}">
+						<option th:each="categoryItem: ${listCategory}" th:value="${categoryItem.id}" th:text="${categoryItem.category}"></option>
+				    </select>
+					<br><br>
+					Pizza Quantity:&nbsp;
+					<input type="text" name="pizza_quantity" value="100">
+					<br><br>
+					Pizza Tax:&nbsp;
+					<input type="text" name="pizza_tax" value="0">
+					<br><br>
+					<input type="submit" value="Submit">
+				</form> 
+			</div>
+		</div>
+	</div>
+	<th:block th:include="fragments/footer"></th:block>
+</body>
+
+</html>

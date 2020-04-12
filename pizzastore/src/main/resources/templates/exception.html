@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/staticFiles"></th:block>
+
+<body>
+	<div class="container">
+	
+		<th:block th:include="fragments/bodyHeader"></th:block>
+
+    <h2>Something happened...</h2>
+
+    <p>${exception.message}</p>
+
+    <!-- Exception: ${exception.message}.
+		  	<c:forEach items="${exception.stackTrace}" var="stackTrace"> 
+				${stackTrace} 
+			</c:forEach>
+	  	-->
+    <th:block th:include="fragments/footer"></th:block>
+
+</div>
+</body>
+
+</html>

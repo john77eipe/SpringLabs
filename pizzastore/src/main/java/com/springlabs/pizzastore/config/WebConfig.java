@@ -1,36 +1,77 @@
 package com.springlabs.pizzastore.config;
 
+
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
-import org.springframework.web.servlet.ViewResolver;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Description;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+
+import javax.swing.*;
 
 @EnableWebMvc
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-	
+
+
+
 	/**
-	 * View resolver is needed because we have placed the jsp files
-	 * at not the default location but under a custom one.
+	 * Thymeleaf template resolver serving HTML 5
+	 * Template resolver resolves templates into TemplateResolution Objects that contain additional code such as
+	 * template mode, caching, prefix, suffix, etc.
+	 * ClassLoaderTemplateResolver is used for loading templates located on the classpath
 	 * @return
 	 */
-
 	@Bean
-	public ViewResolver internalResourceViewResolver() {
-	    InternalResourceViewResolver bean = new InternalResourceViewResolver();
-	    bean.setViewClass(JstlView.class);
-	    bean.setPrefix("/WEB-INF/jsp/");
-	    bean.setSuffix(".jsp");
-	    return bean;
+	public ClassLoaderTemplateResolver templateResolver() {
+
+		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+
+		templateResolver.setPrefix("templates/"); //this is the default directory; this is mandatory if changed
+		templateResolver.setCacheable(false);
+		templateResolver.setSuffix(".html");
+		templateResolver.setTemplateMode("HTML5");
+		templateResolver.setCharacterEncoding("UTF-8");
+
+		return templateResolver;
 	}
-	
+
+	/**
+	 * Thymeleaf template engine with Spring integration
+	 * @return
+	 */
+	@Bean
+	public SpringTemplateEngine templateEngine() {
+
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(templateResolver());
+
+		return templateEngine;
+	}
+
+	/**
+	 * Thymeleaf view resolver
+	 * View resolvers are responsible for obtaining View objects for a specific operation and locale.
+	 * @return
+	 */
+	@Bean
+	public ViewResolver viewResolver() {
+
+		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+
+		viewResolver.setTemplateEngine(templateEngine());
+		viewResolver.setCharacterEncoding("UTF-8");
+
+		return viewResolver;
+	}
 	/**
 	 * Using resource handlers we say where the css, js, images and other static 
 	 * content are present.

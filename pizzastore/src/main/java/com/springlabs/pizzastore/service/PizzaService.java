@@ -17,7 +17,7 @@ public interface PizzaService {
     /**
      * Save a pizza to the repository
      *
-     * @param base base to save
+     * @param pizza to save
      */
     Pizza savePizza(final Pizza pizza);
     

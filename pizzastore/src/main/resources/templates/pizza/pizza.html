@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/staticFiles"></th:block>
+
+<body>
+	<div class="container">
+	
+		<th:block th:include="fragments/bodyHeader"></th:block>
+
+		<!-- Pizza list goes here -->
+        
+		<div class="row">
+			<div class="leftcolumn">
+				<div class="card" th:object="${pizza}">
+			    	<h2><a th:href = "@{'/pizza/' + ${pizza.id}}" th:text="*{name}"></a></h2>
+			      	<h5 th:text = "*{price}">Price: $ </h5>
+			      	<div class="fakeimg" style="height:200px;">Image</div>
+			      	<h3 th:text = "*{category.category}">Category: </h3>
+			      	<h3 th:each ="secCategory : *{secondaryCategories}">
+						Other Categories:
+						<h5 th:text = "${secCategory.category}"></h5>
+			      	</h3>
+				    <p>Description:</p>
+				    <p th:text = "*{description}"></p>
+				</div>
+  			</div>
+		</div>
+
+		<th:block th:include="fragments/footer"></th:block>
+
+	</div>
+</body>
+
+</html>
