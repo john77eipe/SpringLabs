@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn"> <!-- status logger is used internally by log4j2 components to log log4j2 -->
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%t] %d{HH:mm:ss} %-5p %c{1}.%M:%L - %m%n" />
+		</Console>
+		<RollingFile name="RollingFile" fileName="logs/pizzastore-server.log"
+					 filePattern="./logs/pizzastore-server.%d{yyyy-MM-dd}.log"
+					 ignoreExceptions="false">
+			<PatternLayout>
+				<Pattern>[%t] %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} %x - %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+	</Appenders>
+
+	<!-- Note that the mapping for File appender; enable it when needed -->
+
+	<Loggers>
+		<Root additivity="false" level="warn">
+			<!--<AppenderRef ref="RollingFile" /> -->
+			<AppenderRef ref="Console" level="warn"/>
+		</Root>
+		<Logger name="com.springlabs.pizzastore" additivity="false" level="INFO">
+			<!--<Appender-ref ref="RollingFile" /> -->
+			<AppenderRef ref="Console" level="INFO" />
+		</Logger>
+		<Logger name="org.springframework" additivity="false" level="DEBUG">
+			<!--<Appender-ref ref="RollingFile" /> -->
+			<AppenderRef ref="Console" level="DEBUG" />
+		</Logger>
+	</Loggers>
+</Configuration>
