@@ -4,15 +4,7 @@ package com.springlabs.pizzastore.domain;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -40,19 +32,16 @@ public class Pizza {
     
     @ManyToOne
     @JoinColumn(name = "category_default")
-    private Category category; 
+    private Category category;
+
+	@OneToMany
+    private PizzaVariant pizzaVariant;
     
-    @Column(name = "quantity")
-    private Long quantity;
-    
-    @Column(name = "tax")
-    private BigDecimal tax;
-    
-    @Column(name = "on_sale")
-    private Integer onsale;
-    
+
     @Transient
     private List<Category> secondaryCategories;
+
+
     
     public Pizza() {
 	}
@@ -68,8 +57,6 @@ public class Pizza {
 		this.description = description;
 		this.price = price;
 		this.category = category;
-		this.quantity = quantity;
-		this.tax = tax;
 	}
 	
 	
@@ -113,31 +100,6 @@ public class Pizza {
 		this.category = category;
 	}
 	
-
-	public Long getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Long quantity) {
-		this.quantity = quantity;
-	}
-
-	public BigDecimal getTax() {
-		return tax;
-	}
-
-	public void setTax(BigDecimal tax) {
-		this.tax = tax;
-	}
-
-	public Integer getOnsale() {
-		return onsale;
-	}
-
-	public void setOnsale(Integer onsale) {
-		this.onsale = onsale;
-	}
-	
 	public List<Category> getSecondaryCategories() {
 		return secondaryCategories;
 	}
@@ -160,12 +122,6 @@ public class Pizza {
 		builder.append(description);
 		builder.append(", category=");
 		builder.append(category);
-		builder.append(", quantity=");
-		builder.append(quantity);
-		builder.append(", tax=");
-		builder.append(tax);
-		builder.append(", onsale=");
-		builder.append(onsale);
 		builder.append(", secondaryCategories=");
 		builder.append(secondaryCategories);
 		builder.append("]");

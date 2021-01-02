@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/staticFiles"></th:block>
+
+<body>
+<div class="container">
+
+    <th:block th:include="fragments/bodyHeader"></th:block>
+
+    <main>
+        <h1>Profile</h1>
+        <p>Change any of the details</p>
+        <form action="/user/update" method="POST">
+            Email:&nbsp;${email}
+            <br><br>
+            Display Name:&nbsp;
+            <input type="text" name="displayName" value="${displayName}">
+            <br><br>
+            First Name:&nbsp;
+            <input type="text" name="firstName" value="${firstName}">
+            <br><br>
+            Year of Birth:&nbsp;
+            <select name="yob">
+                <option value="1995">1995</option>
+                <option value="1996">1996</option>
+                <option value="1997">1997</option>
+                <option value="1998">1998</option>
+            </select>
+            <br><br>
+            <span>Email cannot be changed. You need to register with a different email id. </span>
+            <span>Resetting password will be an upcoming feature. </span>
+            <input type="submit" value="Save">
+        </form>
+
+        <h1>Order History</h1>
+        <p>Previous purchase history</p>
+    </main>
+
+    <th:block th:include="fragments/footer"></th:block>
+
+</div>
+</body>
+
+</html>

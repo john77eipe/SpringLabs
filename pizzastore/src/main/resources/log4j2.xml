@@ -20,7 +20,7 @@
 		</RollingFile>
 	</Appenders>
 
-	<!-- Note that the mapping for File appender; enable it when needed -->
+	<!-- Note that the mapping for File appender is disabled; enable it when needed -->
 
 	<Loggers>
 		<Root additivity="false" level="warn">

@@ -30,12 +30,14 @@ public interface PizzaService {
 
     /**
      * List all Pizza categories
+	 *
      * @return
      */
 	List<Category> findAllPizzaCategories();
 
 	/**
 	 * Find one single Category from Id
+	 *
 	 * @param categoryId
 	 * @return
 	 */
