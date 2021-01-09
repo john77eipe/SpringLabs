@@ -2,6 +2,10 @@
 DROP TABLE IF EXISTS `tbl_pizza_category_map`;
 DROP TABLE IF EXISTS `tbl_pizza`;
 DROP TABLE IF EXISTS `tbl_category`;
+DROP TABLE IF EXISTS `tbl_user`;
+DROP TABLE IF EXISTS `tbl_order`;
+DROP TABLE IF EXISTS `tbl_order_item`;
+DROP TABLE IF EXISTS `tbl_address`;
 
 --
 -- Table structure for table `pizza_category`
@@ -59,7 +63,7 @@ CREATE TABLE `tbl_pizza_category_map` (
 CREATE TABLE `tbl_user` (
   `id`              INT(11)         NOT NULL AUTO_INCREMENT,
   `display_name`    VARCHAR(32)     NOT NULL,
-  `first_name`      VARCHAR(32)     NOT NULL
+  `first_name`      VARCHAR(32)     NOT NULL,
   `email`           VARCHAR(256)    NOT NULL,
   `password`        VARCHAR(256)    NOT NULL,
   `type`            INT(1)          DEFAULT '1',
@@ -77,7 +81,7 @@ CREATE TABLE `tbl_order` (
   `user_id`         INT(11)         NOT NULL,
   `shipping_addr_id`INT(11)         NOT NULL,
   `billing_addr_id` INT(11)         NOT NULL,
-  `order_state`     INT(1)          NOT NULL DEFAULT 1
+  `order_state`     INT(1)          NOT NULL DEFAULT 1,
   -- 'order state gets these other values: 1:'AddingItems', 2:'OrderPlaced', 3:'Shipped', 4:'Delivered'
   `shipping_cost`   FLOAT(6,2)      NOT NULL DEFAULT 0,
   `shipping_tax`    FLOAT(6,2)      NOT NULL DEFAULT 0,
@@ -96,7 +100,7 @@ CREATE TABLE `tbl_order_item` (
   --pizza_id represents the pizza bought
   `unit_price`      FLOAT(6,2)      NOT NULL,
   `quantity`        INT(100)        NOT NULL,
-  `total_price`     FLOAT(8,2)      NOT NULL
+  `total_price`     FLOAT(8,2)      NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
 
@@ -119,6 +123,6 @@ CREATE TABLE `tbl_address` (
   `type`            INT(1)          NOT NULL,               
   -- type is billing 1 or shipping 2
   `default_billing`     BOOLEAN     DEFAULT NULL,
-  `default_shipping`    BOOLEAN     DEFAULT NULL
+  `default_shipping`    BOOLEAN     DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
