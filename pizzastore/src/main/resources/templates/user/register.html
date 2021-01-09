@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/staticFiles"></th:block>
+
+<body>
+<div class="container">
+
+    <th:block th:include="fragments/bodyHeader"></th:block>
+
+    <main>
+        <h1>Register</h1>
+        <p>Please enter details to register</p>
+        <form action="/user/register" method="POST">
+            Email:&nbsp;
+            <input type="text" name="email" value="">
+            <br><br>
+            Display Name:&nbsp;
+            <input type="text" name="displayName" value="">
+            <br><br>
+            First Name:&nbsp;
+            <input type="text" name="firstName" value="">
+            <br><br>
+            Password:&nbsp;
+            <input type="password" name="password" value="">
+            <br><br>
+            Re-enter Password:&nbsp;
+            <input type="password" name="password" value="">
+            <br><br>
+            Year of Birth:&nbsp;
+            <select name="yob">
+                <option value="1995">1995</option>
+                <option value="1996">1996</option>
+                <option value="1997">1997</option>
+                <option value="1998">1998</option>
+            </select>
+            <br><br>
+            <input type="submit" value="Login">
+        </form>
+    </main>
+
+    <th:block th:include="fragments/footer"></th:block>
+
+</div>
+</body>
+
+</html>
