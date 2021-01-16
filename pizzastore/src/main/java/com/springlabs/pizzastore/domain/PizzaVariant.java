@@ -40,9 +40,94 @@ public class PizzaVariant {
     @Column(name = "on_sale")
     private Integer onsale;
 
-    @ManyToOne
-    private Pizza pizza;
+    @Column(name = "pizza_id")
+    private Long pizzaId;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getPriceWithTax() {
+        return priceWithTax;
+    }
+
+    public void setPriceWithTax(BigDecimal priceWithTax) {
+        this.priceWithTax = priceWithTax;
+    }
+
+    public Long getQuantityOnHand() {
+        return quantityOnHand;
+    }
+
+    public void setQuantityOnHand(Long quantityOnHand) {
+        this.quantityOnHand = quantityOnHand;
+    }
+
+    public Long getOutOfStockThreshold() {
+        return outOfStockThreshold;
+    }
+
+    public void setOutOfStockThreshold(Long outOfStockThreshold) {
+        this.outOfStockThreshold = outOfStockThreshold;
+    }
+
+    public BigDecimal getTax() {
+        return tax;
+    }
+
+    public void setTax(BigDecimal tax) {
+        this.tax = tax;
+    }
+
+    public Integer getOnsale() {
+        return onsale;
+    }
+
+    public void setOnsale(Integer onsale) {
+        this.onsale = onsale;
+    }
+
+    public Long getPizzaId() {
+        return pizzaId;
+    }
+
+    public void setPizzaId(Long pizzaId) {
+        this.pizzaId = pizzaId;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("PizzaVariant{");
+        sb.append("id=").append(id);
+        sb.append(", sku='").append(sku).append('\'');
+        sb.append(", price=").append(price);
+        sb.append(", priceWithTax=").append(priceWithTax);
+        sb.append(", quantityOnHand=").append(quantityOnHand);
+        sb.append(", outOfStockThreshold=").append(outOfStockThreshold);
+        sb.append(", tax=").append(tax);
+        sb.append(", onsale=").append(onsale);
+        sb.append(", pizzaId=").append(pizzaId);
+        sb.append('}');
+        return sb.toString();
+    }
 }

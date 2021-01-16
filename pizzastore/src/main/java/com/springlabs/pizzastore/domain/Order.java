@@ -13,29 +13,23 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @Column(name = "user_id")
     private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "shipping_addr_id")
+    @Column(name = "shipping_addr_id")
     private Long shippingAddrId;
 
-    @ManyToOne
-    @JoinColumn(name = "billing_addr_id")
+    @Column(name = "billing_addr_id")
     private Long billingAddrId;
 
-    @ManyToOne
-    @JoinColumn(name = "order_state")
+    @Column(name = "order_state")
     //order state gets these other values: 1:'AddingItems', 2:'OrderPlaced', 3:'Shipped', 4:'Delivered'
     private Integer orderState;
 
-    @ManyToOne
-    @JoinColumn(name = "shipping_cost")
+    @Column(name = "shipping_cost")
     private BigDecimal shippingCost;
 
-    @ManyToOne
-    @JoinColumn(name = "shipping_tax")
+    @Column(name = "shipping_tax")
     private BigDecimal shippingTax;
 
     @Column(name = "total")
@@ -44,4 +38,91 @@ public class Order {
     @Transient
     private List<OrderItem> orderItems;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getShippingAddrId() {
+        return shippingAddrId;
+    }
+
+    public void setShippingAddrId(Long shippingAddrId) {
+        this.shippingAddrId = shippingAddrId;
+    }
+
+    public Long getBillingAddrId() {
+        return billingAddrId;
+    }
+
+    public void setBillingAddrId(Long billingAddrId) {
+        this.billingAddrId = billingAddrId;
+    }
+
+    public Integer getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(Integer orderState) {
+        this.orderState = orderState;
+    }
+
+    public BigDecimal getShippingCost() {
+        return shippingCost;
+    }
+
+    public void setShippingCost(BigDecimal shippingCost) {
+        this.shippingCost = shippingCost;
+    }
+
+    public BigDecimal getShippingTax() {
+        return shippingTax;
+    }
+
+    public void setShippingTax(BigDecimal shippingTax) {
+        this.shippingTax = shippingTax;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Order{");
+        sb.append("id=").append(id);
+        sb.append(", userId=").append(userId);
+        sb.append(", shippingAddrId=").append(shippingAddrId);
+        sb.append(", billingAddrId=").append(billingAddrId);
+        sb.append(", orderState=").append(orderState);
+        sb.append(", shippingCost=").append(shippingCost);
+        sb.append(", shippingTax=").append(shippingTax);
+        sb.append(", total=").append(total);
+        sb.append(", orderItems=").append(orderItems);
+        sb.append('}');
+        return sb.toString();
+    }
 }

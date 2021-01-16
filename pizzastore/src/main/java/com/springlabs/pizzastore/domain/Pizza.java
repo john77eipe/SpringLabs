@@ -34,9 +34,9 @@ public class Pizza {
     @JoinColumn(name = "category_default")
     private Category category;
 
-	@OneToMany
-    private PizzaVariant pizzaVariant;
-    
+//	@OneToMany
+//    private PizzaVariant pizzaVariant;
+//
 
     @Transient
     private List<Category> secondaryCategories;

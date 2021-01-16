@@ -6,6 +6,11 @@ DROP TABLE IF EXISTS `tbl_user`;
 DROP TABLE IF EXISTS `tbl_order`;
 DROP TABLE IF EXISTS `tbl_order_item`;
 DROP TABLE IF EXISTS `tbl_address`;
+DROP TABLE IF EXISTS `tbl_pizza_variant_option_map`;
+DROP TABLE IF EXISTS `tbl_pizza_option_group`;
+DROP TABLE IF EXISTS `tbl_option`;
+DROP TABLE IF EXISTS `tbl_option_group`;
+DROP TABLE IF EXISTS `tbl_pizza_variant`;
 
 --
 -- Table structure for table `pizza_category`
@@ -94,13 +99,13 @@ CREATE TABLE `tbl_order` (
 --
 
 CREATE TABLE `tbl_order_item` (
-  `id`              INT(11)         NOT NULL AUTO_INCREMENT,
-  `order_id`        INT(11)         NOT NULL,
-  `pizza_id`        INT(11)         NOT NULL,      
+  `id`                  INT(11)         NOT NULL AUTO_INCREMENT,
+  `order_id`            INT(11)         NOT NULL,
+  `pizza_variant_id`    INT(11)         NOT NULL,
   --pizza_id represents the pizza bought
-  `unit_price`      FLOAT(6,2)      NOT NULL,
-  `quantity`        INT(100)        NOT NULL,
-  `total_price`     FLOAT(8,2)      NOT NULL,
+  `unit_price`          FLOAT(6,2)      NOT NULL,
+  `quantity`            INT(100)        NOT NULL,
+  `total_price`         FLOAT(8,2)      NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
 
@@ -124,5 +129,63 @@ CREATE TABLE `tbl_address` (
   -- type is billing 1 or shipping 2
   `default_billing`     BOOLEAN     DEFAULT NULL,
   `default_shipping`    BOOLEAN     DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+--
+-- Table structure for table `tbl_pizza_variant`
+-- A Pizza Variant represents a single stock keeping unit (SKU) in the store’s inventory.
+-- Whereas a Product/Pizza is a “container” of variants, the variant itself holds the data on price, tax category etc.
+-- When one adds items to their cart, they are adding ProductVariants, not Products.
+--
+CREATE TABLE `tbl_pizza_variant` (
+  `id`                  INT(11)         NOT NULL AUTO_INCREMENT,
+  `sku`                 VARCHAR(256)    NOT NULL,
+  `price`               FLOAT(8,2)      NOT NULL,
+  `tax`                 FLOAT(8,2)      DEFAULT 0,
+  `qty_on_hand`         INT(11)         NOT NULL,
+  `out_of_stock_limit`  INT(11)         NOT NULL,
+  `on_sale`             INT(1)          DEFAULT 0,
+  `pizza_id`            INT(11)         NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+--
+-- Table structure for table `tbl_pizza_option`
+-- This represents different attributes of Product/Pizza variants.
+-- No 2 product variants will have the same product options
+--
+CREATE TABLE `tbl_option` (
+  `id`                  INT(11)         NOT NULL AUTO_INCREMENT,
+  `option`              VARCHAR(256)    NOT NULL,
+  `option_group_id`     INT(11)         NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+--
+-- Table structure for table `tbl_product_option_group`
+-- This represents group of options/attributes that applies to pizzas.
+--
+CREATE TABLE `tbl_option_group` (
+  `id`                INT(11)           NOT NULL AUTO_INCREMENT,
+  `group`   		  VARCHAR(256)      NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+CREATE TABLE `tbl_pizza_option_group` (
+  `id`                INT(11)           NOT NULL AUTO_INCREMENT,
+  `pizza_id`          INT(11)           NOT NULL,
+  `option_group_id`   VARCHAR(256)      NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+--
+-- Table structure for table `tbl_pizza_variant_option_map`
+-- This represents group of options/attributes that applies to pizzas.
+--
+CREATE TABLE `tbl_pizza_variant_option_map` (
+   `id`                     INT(11)          NOT NULL AUTO_INCREMENT,
+  `pizza_variant_id`        INT(11)          NOT NULL,
+  `pizza_option_id`         INT(11)          NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
