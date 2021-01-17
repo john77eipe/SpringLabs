@@ -14,7 +14,7 @@ public class Option {
     @Column(name = "option")
     private String option;
 
-    @Column(name = "option_group_id")
+    @Column(name = "group_id")
     private Long optionGrpId;
 
     public Long getId() {
