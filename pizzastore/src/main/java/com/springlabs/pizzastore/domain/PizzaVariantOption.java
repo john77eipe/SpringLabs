@@ -11,11 +11,13 @@ public class PizzaVariantOption {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "pizza_variant_id")
-    private Long pizzaVariantId;
+    @ManyToOne
+    @JoinColumn(name = "pizza_variant_id")
+    private PizzaVariant pizzaVariant;
 
-    @Column(name = "pizza_option_id")
-    private Long pizzaOptionId;
+    @ManyToOne
+    @JoinColumn(name = "pizza_option_id")
+    private Option option;
 
     public Long getId() {
         return id;
@@ -25,28 +27,28 @@ public class PizzaVariantOption {
         this.id = id;
     }
 
-    public Long getPizzaVariantId() {
-        return pizzaVariantId;
-    }
+    public PizzaVariant getPizzaVariant() {
+		return pizzaVariant;
+	}
 
-    public void setPizzaVariantId(Long pizzaVariantId) {
-        this.pizzaVariantId = pizzaVariantId;
-    }
+	public void setPizzaVariant(PizzaVariant pizzaVariant) {
+		this.pizzaVariant = pizzaVariant;
+	}
 
-    public Long getPizzaOptionId() {
-        return pizzaOptionId;
-    }
+	public Option getOption() {
+		return option;
+	}
 
-    public void setPizzaOptionId(Long pizzaOptionId) {
-        this.pizzaOptionId = pizzaOptionId;
-    }
+	public void setOption(Option option) {
+		this.option = option;
+	}
 
-    @Override
+	@Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("PizzaVariantOption{");
         sb.append("id=").append(id);
-        sb.append(", pizzaVariantId=").append(pizzaVariantId);
-        sb.append(", pizzaOptionId=").append(pizzaOptionId);
+        sb.append(", pizzaVariantId=").append(pizzaVariant);
+        sb.append(", pizzaOptionId=").append(option);
         sb.append('}');
         return sb.toString();
     }

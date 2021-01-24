@@ -13,7 +13,7 @@ public class OptionGroup {
 
     @Column(name = "group")
     private String optionGroup;
-
+    
     public Long getId() {
         return id;
     }
