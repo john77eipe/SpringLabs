@@ -1,11 +1,18 @@
 package com.springlabs.pizzastore.domain;
 
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -40,8 +47,9 @@ public class PizzaVariant {
     @Column(name = "on_sale")
     private Integer onsale;
 
-    @Column(name = "pizza_id")
-    private Long pizzaId;
+    @ManyToOne
+    @JoinColumn(name = "pizza_id")
+    private Pizza pizzaId;
 
     public Long getId() {
         return id;
@@ -107,27 +115,37 @@ public class PizzaVariant {
         this.onsale = onsale;
     }
 
-    public Long getPizzaId() {
-        return pizzaId;
-    }
+	public Pizza getPizzaId() {
+		return pizzaId;
+	}
 
-    public void setPizzaId(Long pizzaId) {
-        this.pizzaId = pizzaId;
-    }
+	public void setPizzaId(Pizza pizzaId) {
+		this.pizzaId = pizzaId;
+	}
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("PizzaVariant{");
-        sb.append("id=").append(id);
-        sb.append(", sku='").append(sku).append('\'');
-        sb.append(", price=").append(price);
-        sb.append(", priceWithTax=").append(priceWithTax);
-        sb.append(", quantityOnHand=").append(quantityOnHand);
-        sb.append(", outOfStockThreshold=").append(outOfStockThreshold);
-        sb.append(", tax=").append(tax);
-        sb.append(", onsale=").append(onsale);
-        sb.append(", pizzaId=").append(pizzaId);
-        sb.append('}');
-        return sb.toString();
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("PizzaVariant [id=");
+		builder.append(id);
+		builder.append(", sku=");
+		builder.append(sku);
+		builder.append(", price=");
+		builder.append(price);
+		builder.append(", priceWithTax=");
+		builder.append(priceWithTax);
+		builder.append(", quantityOnHand=");
+		builder.append(quantityOnHand);
+		builder.append(", outOfStockThreshold=");
+		builder.append(outOfStockThreshold);
+		builder.append(", tax=");
+		builder.append(tax);
+		builder.append(", onsale=");
+		builder.append(onsale);
+		builder.append(", pizzaId=");
+		builder.append(pizzaId);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }
