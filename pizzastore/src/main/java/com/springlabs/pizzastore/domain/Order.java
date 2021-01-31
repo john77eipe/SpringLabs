@@ -16,11 +16,13 @@ public class Order {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "shipping_addr_id")
-    private Long shippingAddrId;
+    @ManyToOne
+    @JoinColumn(name = "shipping_addr_id")
+    private Address shippingAddr;
 
-    @Column(name = "billing_addr_id")
-    private Long billingAddrId;
+    @ManyToOne
+    @JoinColumn(name = "billing_addr_id")
+    private Address billingAddr;
 
     @Column(name = "order_state")
     //order state gets these other values: 1:'AddingItems', 2:'OrderPlaced', 3:'Shipped', 4:'Delivered'
@@ -54,20 +56,20 @@ public class Order {
         this.userId = userId;
     }
 
-    public Long getShippingAddrId() {
-        return shippingAddrId;
+    public Address getShippingAddr() {
+        return shippingAddr;
     }
 
-    public void setShippingAddrId(Long shippingAddrId) {
-        this.shippingAddrId = shippingAddrId;
+    public void setShippingAddr(Address shippingAddr) {
+        this.shippingAddr = shippingAddr;
     }
 
-    public Long getBillingAddrId() {
-        return billingAddrId;
+    public Address getBillingAddr() {
+        return billingAddr;
     }
 
-    public void setBillingAddrId(Long billingAddrId) {
-        this.billingAddrId = billingAddrId;
+    public void setBillingAddr(Address billingAddr) {
+        this.billingAddr = billingAddr;
     }
 
     public Integer getOrderState() {
@@ -115,8 +117,8 @@ public class Order {
         final StringBuilder sb = new StringBuilder("Order{");
         sb.append("id=").append(id);
         sb.append(", userId=").append(userId);
-        sb.append(", shippingAddrId=").append(shippingAddrId);
-        sb.append(", billingAddrId=").append(billingAddrId);
+        sb.append(", shippingAddrId=").append(shippingAddr);
+        sb.append(", billingAddrId=").append(billingAddr);
         sb.append(", orderState=").append(orderState);
         sb.append(", shippingCost=").append(shippingCost);
         sb.append(", shippingTax=").append(shippingTax);

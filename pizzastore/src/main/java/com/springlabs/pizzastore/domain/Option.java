@@ -14,8 +14,9 @@ public class Option {
     @Column(name = "option")
     private String option;
 
-    @Column(name = "group_id")
-    private Long optionGrpId;
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private OptionGroup optionGrpId;
 
     public Long getId() {
         return id;
@@ -33,21 +34,25 @@ public class Option {
         this.option = option;
     }
 
-    public Long getOptionGrpId() {
-        return optionGrpId;
-    }
+	public OptionGroup getOptionGrpId() {
+		return optionGrpId;
+	}
 
-    public void setOptionGrpId(Long optionGrpId) {
-        this.optionGrpId = optionGrpId;
-    }
+	public void setOptionGrpId(OptionGroup optionGrpId) {
+		this.optionGrpId = optionGrpId;
+	}
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("PizzaOption{");
-        sb.append("id=").append(id);
-        sb.append(", option='").append(option).append('\'');
-        sb.append(", optionGrpId=").append(optionGrpId);
-        sb.append('}');
-        return sb.toString();
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Option [id=");
+		builder.append(id);
+		builder.append(", option=");
+		builder.append(option);
+		builder.append(", optionGrpId=");
+		builder.append(optionGrpId);
+		builder.append("]");
+		return builder.toString();
+	}
+    
 }

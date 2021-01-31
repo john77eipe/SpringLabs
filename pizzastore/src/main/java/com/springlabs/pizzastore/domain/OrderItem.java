@@ -1,8 +1,15 @@
 package com.springlabs.pizzastore.domain;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 @Entity
@@ -14,11 +21,13 @@ public class OrderItem {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "order_id")
-    private Long orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order orderId;
 
-    @Column(name = "pizza_variant_id")
-    private Long pizzaVariantId;
+    @ManyToOne
+    @JoinColumn(name = "pizza_variant_id")
+    private PizzaVariant pizzaVariantId;
 
     @Column(name = "unit_price")
     private BigDecimal unitPrice;
@@ -35,14 +44,6 @@ public class OrderItem {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getPizzaVariantId() {
-        return pizzaVariantId;
-    }
-
-    public void setPizzaVariantId(Long pizzaVariantId) {
-        this.pizzaVariantId = pizzaVariantId;
     }
 
     public BigDecimal getUnitPrice() {
@@ -69,16 +70,39 @@ public class OrderItem {
         this.totalPrice = totalPrice;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("OrderItem{");
-        sb.append("id=").append(id);
-        sb.append(", orderId=").append(orderId);
-        sb.append(", pizzaVariantId=").append(pizzaVariantId);
-        sb.append(", unitPrice=").append(unitPrice);
-        sb.append(", quantity=").append(quantity);
-        sb.append(", totalPrice=").append(totalPrice);
-        sb.append('}');
-        return sb.toString();
-    }
+	public Order getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Order orderId) {
+		this.orderId = orderId;
+	}
+
+	public PizzaVariant getPizzaVariantId() {
+		return pizzaVariantId;
+	}
+
+	public void setPizzaVariantId(PizzaVariant pizzaVariantId) {
+		this.pizzaVariantId = pizzaVariantId;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("OrderItem [id=");
+		builder.append(id);
+		builder.append(", orderId=");
+		builder.append(orderId);
+		builder.append(", pizzaVariantId=");
+		builder.append(pizzaVariantId);
+		builder.append(", unitPrice=");
+		builder.append(unitPrice);
+		builder.append(", quantity=");
+		builder.append(quantity);
+		builder.append(", totalPrice=");
+		builder.append(totalPrice);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }
