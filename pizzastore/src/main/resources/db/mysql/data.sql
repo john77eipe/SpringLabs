@@ -1,4 +1,5 @@
-  
+use store;
+
 INSERT INTO tbl_category
 VALUES
     (1, 'veg'),

@@ -1,6 +1,7 @@
 package com.springlabs.pizzastore.domain;
 
 import javax.persistence.*;
+import java.util.StringJoiner;
 
 
 @Entity
@@ -33,13 +34,10 @@ public class Category {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ProductCategory [id=");
-		builder.append(id);
-		builder.append(", category=");
-		builder.append(category);
-		builder.append("]");
-		return builder.toString();
+		return new StringJoiner(", ", Category.class.getSimpleName() + "[", "]")
+				.add("id=" + id)
+				.add("category='" + category + "'")
+				.toString();
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name="tbl_pizza_category_map")
@@ -49,6 +50,13 @@ public class PizzaCategoryMap {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return new StringJoiner(", ", PizzaCategoryMap.class.getSimpleName() + "[", "]")
+				.add("id=" + id)
+				.add("product=" + product)
+				.add("category=" + category)
+				.toString();
+	}
 }

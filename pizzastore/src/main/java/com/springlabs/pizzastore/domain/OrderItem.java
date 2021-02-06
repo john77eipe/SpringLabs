@@ -1,6 +1,7 @@
 package com.springlabs.pizzastore.domain;
 
 import java.math.BigDecimal;
+import java.util.StringJoiner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,11 +24,11 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order orderId;
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "pizza_variant_id")
-    private PizzaVariant pizzaVariantId;
+    private PizzaVariant pizzaVariant;
 
     @Column(name = "unit_price")
     private BigDecimal unitPrice;
@@ -70,39 +71,32 @@ public class OrderItem {
         this.totalPrice = totalPrice;
     }
 
-	public Order getOrderId() {
-		return orderId;
+	public Order getOrder() {
+		return order;
 	}
 
-	public void setOrderId(Order orderId) {
-		this.orderId = orderId;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
-	public PizzaVariant getPizzaVariantId() {
-		return pizzaVariantId;
+	public PizzaVariant getPizzaVariant() {
+		return pizzaVariant;
 	}
 
-	public void setPizzaVariantId(PizzaVariant pizzaVariantId) {
-		this.pizzaVariantId = pizzaVariantId;
+	public void setPizzaVariant(PizzaVariant pizzaVariant) {
+		this.pizzaVariant = pizzaVariant;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("OrderItem [id=");
-		builder.append(id);
-		builder.append(", orderId=");
-		builder.append(orderId);
-		builder.append(", pizzaVariantId=");
-		builder.append(pizzaVariantId);
-		builder.append(", unitPrice=");
-		builder.append(unitPrice);
-		builder.append(", quantity=");
-		builder.append(quantity);
-		builder.append(", totalPrice=");
-		builder.append(totalPrice);
-		builder.append("]");
-		return builder.toString();
-	}
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", OrderItem.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("order=" + order)
+                .add("pizzaVariant=" + pizzaVariant)
+                .add("unitPrice=" + unitPrice)
+                .add("quantity=" + quantity)
+                .add("totalPrice=" + totalPrice)
+                .toString();
+    }
 
 }

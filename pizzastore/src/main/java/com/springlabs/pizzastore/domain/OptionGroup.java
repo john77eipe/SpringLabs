@@ -1,6 +1,7 @@
 package com.springlabs.pizzastore.domain;
 
 import javax.persistence.*;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name="tbl_option_group")
@@ -32,10 +33,9 @@ public class OptionGroup {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("OptionGroup{");
-        sb.append("id=").append(id);
-        sb.append(", optionGroup='").append(optionGroup).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return new StringJoiner(", ", OptionGroup.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("optionGroup='" + optionGroup + "'")
+                .toString();
     }
 }

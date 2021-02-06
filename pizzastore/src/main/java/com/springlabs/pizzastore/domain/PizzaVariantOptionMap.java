@@ -1,6 +1,7 @@
 package com.springlabs.pizzastore.domain;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "tbl_pizza_variant_option_map")
+@Entity
+@Table(name = "tbl_pizza_variant_option_map")
 public class PizzaVariantOptionMap {
 
 	@Id
@@ -22,11 +23,11 @@ public class PizzaVariantOptionMap {
 
 	@ManyToOne
 	@JoinColumn(name = "pizza_variant_id")
-	private List<PizzaVariant> pizzaVariant;
+	private PizzaVariant pizzaVariant;
 
 	@ManyToOne
 	@JoinColumn(name = "pizza_option_id")
-	private List<Option> pizzaOption;
+	private Option pizzaOption;
 
 	public Long getId() {
 		return id;
@@ -36,33 +37,29 @@ public class PizzaVariantOptionMap {
 		this.id = id;
 	}
 
-	public List<PizzaVariant> getPizzaVariant() {
+	public PizzaVariant getPizzaVariant() {
 		return pizzaVariant;
 	}
 
-	public void setPizzaVariant(List<PizzaVariant> pizzaVariant) {
+	public void setPizzaVariant(PizzaVariant pizzaVariant) {
 		this.pizzaVariant = pizzaVariant;
 	}
 
-	public List<Option> getPizzaOption() {
+	public Option getPizzaOption() {
 		return pizzaOption;
 	}
 
-	public void setPizzaOption(List<Option> pizzaOption) {
+	public void setPizzaOption(Option pizzaOption) {
 		this.pizzaOption = pizzaOption;
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("PizzaVariantOptionMap [id=");
-		builder.append(id);
-		builder.append(", pizzaVariant=");
-		builder.append(pizzaVariant);
-		builder.append(", pizzaOption=");
-		builder.append(pizzaOption);
-		builder.append("]");
-		return builder.toString();
+		return new StringJoiner(", ", PizzaVariantOptionMap.class.getSimpleName() + "[", "]")
+				.add("id=" + id)
+				.add("pizzaVariant=" + pizzaVariant)
+				.add("pizzaOption=" + pizzaOption)
+				.toString();
 	}
 
 }

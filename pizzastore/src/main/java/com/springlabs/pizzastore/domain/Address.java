@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "tbl_address")
@@ -150,35 +151,21 @@ public class Address {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Address [id=");
-		builder.append(id);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", company=");
-		builder.append(company);
-		builder.append(", addressLine1=");
-		builder.append(addressLine1);
-		builder.append(", addressLine2=");
-		builder.append(addressLine2);
-		builder.append(", addressLine3=");
-		builder.append(addressLine3);
-		builder.append(", city=");
-		builder.append(city);
-		builder.append(", state=");
-		builder.append(state);
-		builder.append(", pinCode=");
-		builder.append(pinCode);
-		builder.append(", country=");
-		builder.append(country);
-		builder.append(", type=");
-		builder.append(type);
-		builder.append(", defaultBilling=");
-		builder.append(defaultBilling);
-		builder.append(", defaultShipping=");
-		builder.append(defaultShipping);
-		builder.append("]");
-		return builder.toString();
+		return new StringJoiner(", ", Address.class.getSimpleName() + "[", "]")
+				.add("id=" + id)
+				.add("name='" + name + "'")
+				.add("company='" + company + "'")
+				.add("addressLine1='" + addressLine1 + "'")
+				.add("addressLine2='" + addressLine2 + "'")
+				.add("addressLine3='" + addressLine3 + "'")
+				.add("city='" + city + "'")
+				.add("state='" + state + "'")
+				.add("pinCode='" + pinCode + "'")
+				.add("country='" + country + "'")
+				.add("type=" + type)
+				.add("defaultBilling=" + defaultBilling)
+				.add("defaultShipping=" + defaultShipping)
+				.toString();
 	}
 
 }

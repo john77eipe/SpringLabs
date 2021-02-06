@@ -2,6 +2,7 @@ package com.springlabs.pizzastore.domain;
 
 
 import java.math.BigDecimal;
+import java.util.StringJoiner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -123,29 +124,19 @@ public class PizzaVariant {
 		this.pizzaId = pizzaId;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("PizzaVariant [id=");
-		builder.append(id);
-		builder.append(", sku=");
-		builder.append(sku);
-		builder.append(", price=");
-		builder.append(price);
-		builder.append(", priceWithTax=");
-		builder.append(priceWithTax);
-		builder.append(", quantityOnHand=");
-		builder.append(quantityOnHand);
-		builder.append(", outOfStockThreshold=");
-		builder.append(outOfStockThreshold);
-		builder.append(", tax=");
-		builder.append(tax);
-		builder.append(", onsale=");
-		builder.append(onsale);
-		builder.append(", pizzaId=");
-		builder.append(pizzaId);
-		builder.append("]");
-		return builder.toString();
-	}
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", PizzaVariant.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("sku='" + sku + "'")
+                .add("price=" + price)
+                .add("priceWithTax=" + priceWithTax)
+                .add("quantityOnHand=" + quantityOnHand)
+                .add("outOfStockThreshold=" + outOfStockThreshold)
+                .add("tax=" + tax)
+                .add("onsale=" + onsale)
+                .add("pizzaId=" + pizzaId)
+                .toString();
+    }
 
 }

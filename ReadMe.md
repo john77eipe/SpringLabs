@@ -788,7 +788,20 @@ Action items for this sprint:
     6. Admin screen to support delete and edits of pizzas
     7. Admin screen to support marking a pizza for published(available-on-store)
     8. Add filter to pizza listing screen to filter only published pizzas
-    
+
+Noticed that the Driver class is not needed in the first place.
+```log
+[restartedMain] 17:54:28 DEBUG DefaultListableBeanFactory.createArgumentArray:795 - Autowiring by type from bean name 'dataSource' via factory method to bean named 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties'
+Loading class `com.mysql.jdbc.Driver`. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver`. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+```
+
+Database initialization is excellant for Dev and Test environments. We were making it work using the `initialization-mode` property in application.yml.
+Later realized that there are 2 ways to specify this
+1. JPA configuration using `spring.jpa.generate-ddl` and `spring.jpa.hibernate.ddl-auto`
+2. Spring configuration using `spring.datasource.initialization-mode`
 
 
+MySQL doesn't consider the common -- as comments. Well yes and no.
+it has to be -- with a space succeeding.
 
+But you should be using both as explained here https://docs.spring.io/spring-boot/docs/2.0.0.M7/reference/html/howto-database-initialization.html

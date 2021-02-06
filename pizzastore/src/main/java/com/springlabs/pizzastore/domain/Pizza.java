@@ -3,6 +3,7 @@ package com.springlabs.pizzastore.domain;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.StringJoiner;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -108,24 +109,17 @@ public class Pizza {
 		this.secondaryCategories = secondaryCategories;
 	}
 
-	
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Pizza [id=");
-		builder.append(id);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", price=");
-		builder.append(price);
-		builder.append(", description=");
-		builder.append(description);
-		builder.append(", category=");
-		builder.append(category);
-		builder.append(", secondaryCategories=");
-		builder.append(secondaryCategories);
-		builder.append("]");
-		return builder.toString();
+		return new StringJoiner(", ", Pizza.class.getSimpleName() + "[", "]")
+				.add("id=" + id)
+				.add("name='" + name + "'")
+				.add("price=" + price)
+				.add("description='" + description + "'")
+				.add("category=" + category)
+				.add("secondaryCategories=" + secondaryCategories)
+				.toString();
 	}
 
 

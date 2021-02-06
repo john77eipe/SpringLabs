@@ -1,26 +1,28 @@
---dropping order and order items
+use store;
+
+-- dropping order and order items
 DROP TABLE IF EXISTS `tbl_order_item`;
 DROP TABLE IF EXISTS `tbl_order`;
---dropping category maps, option groups, option maps
+-- dropping category maps, option groups, option maps
 DROP TABLE IF EXISTS `tbl_pizza_category_map`;
 DROP TABLE IF EXISTS `tbl_pizza_option_group`;
 DROP TABLE IF EXISTS `tbl_pizza_variant_option_map`;
---dropping option group and options
+-- dropping option group and options
 DROP TABLE IF EXISTS `tbl_option`;
 DROP TABLE IF EXISTS `tbl_option_group`;
 
---dropping user
+-- dropping user
 DROP TABLE IF EXISTS `tbl_user`;
---dropping top level tables - address, pizza variant, pizza and category
+-- dropping top level tables - address, pizza variant, pizza and category
 DROP TABLE IF EXISTS `tbl_address`;
 DROP TABLE IF EXISTS `tbl_pizza_variant`;
 DROP TABLE IF EXISTS `tbl_pizza`;
 DROP TABLE IF EXISTS `tbl_category`;
 
---convention used for FK's
---fk__ForeignKeyTable_PrimaryKeyTable
---convention used for index on ForeignKey Columns
---ForeignKeyColumn_idx
+-- convention used for FK's
+-- fk__ForeignKeyTable_PrimaryKeyTable
+-- convention used for index on ForeignKey Columns
+-- ForeignKeyColumn_idx
 
 --
 -- Table structure for table `tbl_category`
@@ -86,7 +88,7 @@ CREATE TABLE `tbl_address` (
   `address_line_1`      VARCHAR(128)        NOT NULL,
   `address_line_2`      VARCHAR(256)        NOT NULL,
   `address_line_3`      VARCHAR(256)        DEFAULT NULL,
-  --only address line 3 is allowed to be NULL
+  -- only address line 3 is allowed to be NULL
   `city`                VARCHAR(256)        NOT NULL,
   `state`               VARCHAR(256)        NOT NULL,
   `postal_code`         VARCHAR(256)        NOT NULL,
@@ -176,7 +178,7 @@ CREATE TABLE `tbl_order_item` (
   `id`                  INT(11)             NOT NULL AUTO_INCREMENT,
   `order_id`            INT(11)             NOT NULL,
   `pizza_variant_id`    INT(11)             NOT NULL,
-  --pizza_variant_id represents the sku bought
+  -- pizza_variant_id represents the sku bought
   `unit_price`          FLOAT(6,2)          NOT NULL,
   `quantity`            INT(100)            NOT NULL,
   `total_price`         FLOAT(8,2)          NOT NULL,

@@ -3,6 +3,7 @@ package com.springlabs.pizzastore.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name="tbl_order")
@@ -114,17 +115,16 @@ public class Order {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Order{");
-        sb.append("id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", shippingAddrId=").append(shippingAddr);
-        sb.append(", billingAddrId=").append(billingAddr);
-        sb.append(", orderState=").append(orderState);
-        sb.append(", shippingCost=").append(shippingCost);
-        sb.append(", shippingTax=").append(shippingTax);
-        sb.append(", total=").append(total);
-        sb.append(", orderItems=").append(orderItems);
-        sb.append('}');
-        return sb.toString();
+        return new StringJoiner(", ", Order.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("userId=" + userId)
+                .add("shippingAddr=" + shippingAddr)
+                .add("billingAddr=" + billingAddr)
+                .add("orderState=" + orderState)
+                .add("shippingCost=" + shippingCost)
+                .add("shippingTax=" + shippingTax)
+                .add("total=" + total)
+                .add("orderItems=" + orderItems)
+                .toString();
     }
 }

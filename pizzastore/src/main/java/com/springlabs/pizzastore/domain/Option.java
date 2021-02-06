@@ -16,7 +16,7 @@ public class Option {
 
     @ManyToOne
     @JoinColumn(name = "group_id")
-    private OptionGroup optionGrpId;
+    private OptionGroup optionGroup;
 
     public Long getId() {
         return id;
@@ -34,12 +34,12 @@ public class Option {
         this.option = option;
     }
 
-	public OptionGroup getOptionGrpId() {
-		return optionGrpId;
+	public OptionGroup getOptionGroup() {
+		return optionGroup;
 	}
 
-	public void setOptionGrpId(OptionGroup optionGrpId) {
-		this.optionGrpId = optionGrpId;
+	public void setOptionGroup(OptionGroup optionGroup) {
+		this.optionGroup = optionGroup;
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class Option {
 		builder.append(", option=");
 		builder.append(option);
 		builder.append(", optionGrpId=");
-		builder.append(optionGrpId);
+		builder.append(optionGroup);
 		builder.append("]");
 		return builder.toString();
 	}
