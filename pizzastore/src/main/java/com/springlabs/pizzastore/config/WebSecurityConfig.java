@@ -56,25 +56,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	
 		//Note that the order of the antMatchers() elements is significant 
 		//the more specific rules need to come first, followed by the more general ones
-		httpSecurity.authorizeRequests().antMatchers("/").permitAll();
-		//.csrf().disable()
+		httpSecurity
+//                .authorizeRequests().antMatchers("/").permitAll();
+		.csrf().disable()
 		//DISABLED FOR NOW
-//		.authorizeRequests()
-//	        .antMatchers("/loginPage").permitAll()
-//			.antMatchers("/register/**").permitAll()
-//	        .antMatchers("/**", "/css/**", "/js/**", "/images/**").permitAll()
-//	        .and()
-//	        .formLogin()
-//		        .loginPage("/loginPage")
-//		        .loginProcessingUrl("/login")
-//				.usernameParameter("email")  //since we use email and not username as the principal of authentication
-//	        .failureHandler(authenticationFailureHandler)
-//	        .successHandler(authenticationSuccessHandler)
-//	        .and()
-//		        .logout()
-//				.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
-//				.logoutSuccessUrl("/")
-//	        .deleteCookies("JSESSIONID");
+		.authorizeRequests()
+			.antMatchers("/user/**").permitAll()
+	        .antMatchers("/**", "/css/**", "/js/**", "/images/**").permitAll()
+	        .and()
+	        .formLogin()
+		        .loginPage("/user/loginPage")
+		        .loginProcessingUrl("/user/login")
+				.usernameParameter("email")  //since we use email and not username as the principal of authentication
+	        .failureHandler(authenticationFailureHandler)
+	        .successHandler(authenticationSuccessHandler)
+	        .and()
+		        .logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
+				.logoutSuccessUrl("/")
+	        .deleteCookies("JSESSIONID");
     }
 
     @Override

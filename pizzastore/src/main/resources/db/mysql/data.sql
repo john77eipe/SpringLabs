@@ -27,10 +27,11 @@ VALUES
     (2, 6, 9),
     (3, 5, 9);
 
+-- Password is 123
 INSERT INTO tbl_user
 VALUES
-    (1, 'shan', 'shan', 'shan@gmail.com', '12345', '2', '1990'),
-    (2, 'mad', 'master', 'mad@gmail.com', '12345', '1', '1980');
+    (1, 'shan', 'shan', 'shan@gmail.com', '$2a$10$2L1ElfTdh4YzCrERdIsQSuKGOeOBGpfvXZWKbPy8zTTQ4wBAnqWbC', '2', '1990'),
+    (2, 'mad', 'master', 'mad@gmail.com', '$2a$10$2L1ElfTdh4YzCrERdIsQSuKGOeOBGpfvXZWKbPy8zTTQ4wBAnqWbC', '1', '1980');
 
 INSERT INTO tbl_option_group
 VALUES
