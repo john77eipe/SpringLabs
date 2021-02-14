@@ -25,10 +25,22 @@ public class OrderController {
 
 	@Autowired
 	OrderService orderService;
-	
+
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//add to cart
+	@GetMapping("/addToCart/{pizzaId}")
+	public ModelAndView addToCart(@PathVariable final Long pizzaId, ModelAndView modelAndView) {
+		logger.info("Pizza controller");
+		Pizza pizza = pizzaService.getPizza(pizzaId);
+		if(pizza==null) {
+			//TODO: error page redirection
+		}
+		modelAndView.addObject("pizza", pizza);
+		modelAndView.setViewName("pizza/pizza");
+		return modelAndView;
+	}
 
 	//place order
 
