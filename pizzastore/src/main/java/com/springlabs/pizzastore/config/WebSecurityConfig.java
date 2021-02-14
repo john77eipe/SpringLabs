@@ -59,9 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity
 //                .authorizeRequests().antMatchers("/").permitAll();
 		.csrf().disable()
-		//DISABLED FOR NOW
 		.authorizeRequests()
+			.antMatchers("/admin/**").hasAnyRole("ADMIN", "OWNER")
+			.antMatchers("/order/**").hasAnyRole("CUSTOMER", "OWNER", "ADMIN")
 			.antMatchers("/user/**").permitAll()
+			.antMatchers("/pizza/**").permitAll()
 	        .antMatchers("/**", "/css/**", "/js/**", "/images/**").permitAll()
 	        .and()
 	        .formLogin()
@@ -72,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	        .successHandler(authenticationSuccessHandler)
 	        .and()
 		        .logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
+				.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout**"))
 				.logoutSuccessUrl("/")
 	        .deleteCookies("JSESSIONID");
     }

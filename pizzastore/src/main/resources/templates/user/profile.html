@@ -12,23 +12,21 @@
 
     <main>
         <h1>Profile</h1>
-        <div sec:authorize="isAuthenticated()">
+        <div sec:authorize="isFullyAuthenticated()">
             Hooraay!! you already have a account and profile.
-        </div>
-        <div sec:authorize="hasRole('ROLE_CUSTOMER')">
-            Profile details for authenticated person who has a CUSTOMER role: <br/>
+            <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+                Profile details for authenticated person who has a CUSTOMER role <br/>
+                Authenticated as <span sec:authentication="principal.email"></span>
 
-            Authenticated as <span sec:authentication="name"></span>
-            Username is <span sec:authentication="principal.email"></span>
-            Name is <span sec:authentication="principal.displayname"></span>
-            Age is <span sec:authentication="principal.yob"></span>
-            <!--
-            Another approach:
-            <th:block th:with="auth=${#authentication.getPrincipal()}">
-                Age is <span th:text="${auth!=null? auth.age : 'NULL'}"></span>
-            </th:block>
-            -->
+                <!--
+                Another approach:
+                <th:block th:with="auth=${#authentication.getPrincipal()}">
+                    Age is <span th:text="${auth!=null? auth.age : 'NULL'}"></span>
+                </th:block>
+                -->
+            </div>
         </div>
+
 
         <div>
             <h1>Update Profile</h1>
