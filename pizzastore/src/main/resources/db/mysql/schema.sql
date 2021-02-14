@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS `tbl_option`;
 DROP TABLE IF EXISTS `tbl_option_group`;
 
 -- dropping user
+DROP TABLE IF EXISTS `tbl_authorities`;
 DROP TABLE IF EXISTS `tbl_user`;
 -- dropping top level tables - address, pizza variant, pizza and category
 DROP TABLE IF EXISTS `tbl_address`;
@@ -122,6 +123,14 @@ CREATE TABLE `tbl_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
 
 
+CREATE TABLE `tbl_authorities` (
+  `id`              INT(11)         NOT NULL AUTO_INCREMENT,
+  `authority`       VARCHAR(255)    DEFAULT NULL,
+  `user_account_id` INT(11)         DEFAULT NULL,
+
+  PRIMARY KEY (`id`),
+  KEY `user_account_id_idx` (`user_account_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
 
 --
 -- Table structure for table `tbl_pizza_variant`

@@ -95,6 +95,13 @@ VALUES
     (12,4,13);
 
 
+INSERT INTO tbl_authorities
+VALUES
+    (1, "ROLE_ADMIN", 1),
+    (2, "ROLE_OWNER", 1),
+    (3, "ROLE_CUSTOMER", 1),
+    (4, "ROLE_OWNER", 2),
+    (5, "ROLE_CUSTOMER", 2);
 
 
 
