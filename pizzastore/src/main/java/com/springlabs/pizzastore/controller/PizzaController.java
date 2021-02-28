@@ -1,8 +1,6 @@
 package com.springlabs.pizzastore.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.springlabs.pizzastore.domain.Pizza;
-import com.springlabs.pizzastore.domain.Category;
 import com.springlabs.pizzastore.service.PizzaService;
 
 
@@ -55,6 +52,12 @@ public class PizzaController {
 		return modelAndView;
     }
 	
+	@GetMapping("/pizzaForm")
+    public ModelAndView newPizza(ModelAndView modelAndView) {
+		logger.info("Pizza controller");
+		modelAndView.setViewName("pizza/pizzaForm");
+		return modelAndView;
+    }
 	
 	@PostMapping("/save")
     public RedirectView savePizza(
@@ -65,18 +68,18 @@ public class PizzaController {
     		@RequestParam(defaultValue = "100") String pizza_quantity,
     		@RequestParam(required = false, defaultValue = "0") String pizza_tax) {
 		logger.info("Pizza controller");
-		Category existing_pizzaCategory = pizzaService.getPizzaCategory(Long.parseLong(pizza_cat));
-		Long quantity = Long.valueOf(pizza_quantity);
-		BigDecimal tax =  BigDecimal.valueOf(Double.parseDouble(pizza_tax));
-		Pizza pizzaSaved = pizzaService.savePizza(
-				new Pizza(pizza_name, 
-						pizza_desc, 
-						BigDecimal.valueOf(Double.parseDouble(pizza_price)), 
-						existing_pizzaCategory,
-						quantity,
-						tax)
-				);
-		logger.info("Pizza saved: " + pizzaSaved);
+//		Category existing_pizzaCategory = pizzaService.getPizzaCategory(Long.parseLong(pizza_cat));
+//		Long quantity = Long.valueOf(pizza_quantity);
+//		BigDecimal tax =  BigDecimal.valueOf(Double.parseDouble(pizza_tax));
+//		Pizza pizzaSaved = pizzaService.savePizza(
+//				new Pizza(pizza_name, 
+//						pizza_desc, 
+//						BigDecimal.valueOf(Double.parseDouble(pizza_price)), 
+//						existing_pizzaCategory,
+//						quantity,
+//						tax)
+//				);
+//		logger.info("Pizza saved: " + pizzaSaved);
 		return new RedirectView("/pizza/all");
     }
 }	

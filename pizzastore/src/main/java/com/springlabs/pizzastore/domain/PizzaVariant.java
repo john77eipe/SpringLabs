@@ -1,7 +1,7 @@
 package com.springlabs.pizzastore.domain;
 
-
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.StringJoiner;
 
 import javax.persistence.Column;
@@ -11,110 +11,113 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
-@Table(name="tbl_pizza_variant")
+@Table(name = "tbl_pizza_variant")
 public class PizzaVariant {
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "id_pizza_variant")
 	private Long id;
 
-    @NotNull
-    @Column(name = "sku")
-    private String sku;
+	@NotNull
+	@Column(name = "sku")
+	private String sku;
 
-    @Column(name = "price")
-    private BigDecimal price;
+	@Column(name = "price")
+	private BigDecimal price;
 
 	@Transient
 	private BigDecimal priceWithTax;
 
-    @Column(name = "qty_on_hand")
-    private Long quantityOnHand;
+	@Column(name = "qty_on_hand")
+	private Long quantityOnHand;
 
 	@Column(name = "out_of_stock_limit")
 	private Long outOfStockThreshold;
 
-    @Column(name = "tax")
-    private BigDecimal tax;
+	@Column(name = "tax")
+	private BigDecimal tax;
 
-    @Column(name = "on_sale")
-    private Integer onsale;
+	@Column(name = "qty_on_sale")
+	private Integer onsale;
 
-    @ManyToOne
-    @JoinColumn(name = "pizza_id")
-    private Pizza pizzaId;
+	@ManyToOne
+	@JoinColumn(name = "id_pizza")
+	private Pizza pizzaId;
 
-    public Long getId() {
-        return id;
-    }
+	@OneToMany
+	@JoinColumn(name = "id_pizza_variety")
+	private List<PizzaVariety> pizzaVariety;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getSku() {
-        return sku;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
+	public String getSku() {
+		return sku;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public BigDecimal getPriceWithTax() {
-        return priceWithTax;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public void setPriceWithTax(BigDecimal priceWithTax) {
-        this.priceWithTax = priceWithTax;
-    }
+	public BigDecimal getPriceWithTax() {
+		return priceWithTax;
+	}
 
-    public Long getQuantityOnHand() {
-        return quantityOnHand;
-    }
+	public void setPriceWithTax(BigDecimal priceWithTax) {
+		this.priceWithTax = priceWithTax;
+	}
 
-    public void setQuantityOnHand(Long quantityOnHand) {
-        this.quantityOnHand = quantityOnHand;
-    }
+	public Long getQuantityOnHand() {
+		return quantityOnHand;
+	}
 
-    public Long getOutOfStockThreshold() {
-        return outOfStockThreshold;
-    }
+	public void setQuantityOnHand(Long quantityOnHand) {
+		this.quantityOnHand = quantityOnHand;
+	}
 
-    public void setOutOfStockThreshold(Long outOfStockThreshold) {
-        this.outOfStockThreshold = outOfStockThreshold;
-    }
+	public Long getOutOfStockThreshold() {
+		return outOfStockThreshold;
+	}
 
-    public BigDecimal getTax() {
-        return tax;
-    }
+	public void setOutOfStockThreshold(Long outOfStockThreshold) {
+		this.outOfStockThreshold = outOfStockThreshold;
+	}
 
-    public void setTax(BigDecimal tax) {
-        this.tax = tax;
-    }
+	public BigDecimal getTax() {
+		return tax;
+	}
 
-    public Integer getOnsale() {
-        return onsale;
-    }
+	public void setTax(BigDecimal tax) {
+		this.tax = tax;
+	}
 
-    public void setOnsale(Integer onsale) {
-        this.onsale = onsale;
-    }
+	public Integer getOnsale() {
+		return onsale;
+	}
+
+	public void setOnsale(Integer onsale) {
+		this.onsale = onsale;
+	}
 
 	public Pizza getPizzaId() {
 		return pizzaId;
@@ -124,19 +127,32 @@ public class PizzaVariant {
 		this.pizzaId = pizzaId;
 	}
 
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", PizzaVariant.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("sku='" + sku + "'")
-                .add("price=" + price)
-                .add("priceWithTax=" + priceWithTax)
-                .add("quantityOnHand=" + quantityOnHand)
-                .add("outOfStockThreshold=" + outOfStockThreshold)
-                .add("tax=" + tax)
-                .add("onsale=" + onsale)
-                .add("pizzaId=" + pizzaId)
-                .toString();
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("PizzaVariant [id=");
+		builder.append(id);
+		builder.append(", sku=");
+		builder.append(sku);
+		builder.append(", price=");
+		builder.append(price);
+		builder.append(", priceWithTax=");
+		builder.append(priceWithTax);
+		builder.append(", quantityOnHand=");
+		builder.append(quantityOnHand);
+		builder.append(", outOfStockThreshold=");
+		builder.append(outOfStockThreshold);
+		builder.append(", tax=");
+		builder.append(tax);
+		builder.append(", onsale=");
+		builder.append(onsale);
+		builder.append(", pizzaId=");
+		builder.append(pizzaId);
+		builder.append(", pizzaVariety=");
+		builder.append(pizzaVariety);
+		builder.append("]");
+		return builder.toString();
+	}
+
 
 }

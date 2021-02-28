@@ -1,6 +1,5 @@
 package com.springlabs.pizzastore.service.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springlabs.pizzastore.domain.Pizza;
-import com.springlabs.pizzastore.domain.Category;
-import com.springlabs.pizzastore.repository.impl.JpaCategoryRepository;
 import com.springlabs.pizzastore.repository.impl.JpaPizzaRepository;
 import com.springlabs.pizzastore.service.PizzaService;
 
@@ -22,9 +19,6 @@ public class PizzaServiceImpl implements PizzaService {
 
     @Autowired
     private JpaPizzaRepository pizzaRepository;
-
-    @Autowired
-    private JpaCategoryRepository pizzaCategoryRepository;
 
     public PizzaServiceImpl(JpaPizzaRepository pizzaRepository) {
         this.pizzaRepository = pizzaRepository;
@@ -54,27 +48,11 @@ public class PizzaServiceImpl implements PizzaService {
 	public Pizza getPizza(long pizzaId) {
 		logger.debug("Begin operation: getPizza: request:{} ", pizzaId);
         Pizza pizza = pizzaRepository.getOne(pizzaId);
-        List<Category> otherCategories = pizzaCategoryRepository.fetchSecondaryPizzaCategories(pizzaId);
-        logger.debug("Fetched non-default categories: "+otherCategories);
-        pizza.setSecondaryCategories(otherCategories);
+        //List<Category> otherCategories = pizzaCategoryRepository.fetchSecondaryPizzaCategories(pizzaId);
+        //logger.debug("Fetched non-default categories: "+otherCategories);
+        //pizza.setSecondaryCategories(otherCategories);
         logger.debug("End operation: getPizza: response:{} ", pizza);
 		return pizza;
-	}
-
-	@Override
-	public List<Category> findAllPizzaCategories() {
-		logger.debug("Begin operation: getPizzaCategories");
-		List<Category> pizzaCategoryList = pizzaCategoryRepository.findAll();
-        logger.debug("End operation: getPizzaCategories: response:{} ", pizzaCategoryList);
-		return pizzaCategoryList;
-	}
-	
-	@Override
-	public Category getPizzaCategory(final long categoryId) {
-		logger.debug("Begin operation: getPizzaCategory: request:{} ", categoryId);
-        Category pizzaCategory = pizzaCategoryRepository.getOne(categoryId);
-        logger.debug("End operation: getPizzaCategory: response:{} ", pizzaCategory);
-		return pizzaCategory;
 	}
 
 }

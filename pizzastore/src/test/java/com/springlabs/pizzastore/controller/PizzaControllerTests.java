@@ -35,11 +35,9 @@ public class PizzaControllerTests {
         Pizza pizza1 = new Pizza();
         pizza1.setId(1L);
         pizza1.setName("test pizza 1");
-        pizza1.setPrice(new BigDecimal(10000));
         Pizza pizza2 = new Pizza();
         pizza2.setId(1L);
         pizza2.setName("test pizza 2");
-        pizza2.setPrice(new BigDecimal(10000));
         given(this.pizzaService.findAllPizzas()).willReturn(Lists.newArrayList(pizza1, pizza2));
     }
 

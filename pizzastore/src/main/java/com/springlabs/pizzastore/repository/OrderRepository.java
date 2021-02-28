@@ -6,24 +6,25 @@ import java.util.List;
 
 public interface OrderRepository {
 
-    //add to cart
-    boolean addItemsToOrder();
+	// add to cart
+//	boolean addItemsToOrder();
+//
+//	// place order
+//	boolean placeOrder();
+//
+//	// place shipping addr
+//	boolean addModifyShippingAddress();
+//
+//	// make payment
+//	boolean initiatePayment();
+//
+//	// complete order
+//	boolean completeOrder();
+//
+//	// fetch order status
+//	List<Order> fetchActiveOrders();
+//
+//	// fetch order history
+//	List<Order> fetchOrdersHistory();
 
-    //place order
-    boolean placeOrder();
-
-    //place shipping addr
-    boolean addModifyShippingAddress();
-
-    //make payment
-    boolean initiatePayment();
-
-    //complete order
-    boolean completeOrder();
-
-    //fetch order status
-    List<Order> fetchActiveOrders();
-
-    //fetch order history
-    List<Order> fetchOrdersHistory();
 }
