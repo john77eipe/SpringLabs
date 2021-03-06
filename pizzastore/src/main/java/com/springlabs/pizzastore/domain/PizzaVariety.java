@@ -1,6 +1,7 @@
 package com.springlabs.pizzastore.domain;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,52 +19,49 @@ public class PizzaVariety {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_pizza_variety")
-	private Long idPizzaVariety;
+	@Column(name = "id")
+	private Long id;
 	
 	@OneToMany
-	@JoinColumn(name = "id_pizza_variant")
-	private List<PizzaVariant> idPizzaVariant;
+	@JoinColumn(name = "pizza_variant_id")
+	private List<PizzaVariant> pizzaVariants;
 
 	@ManyToMany
-	@JoinColumn(name = "id_pizza_option")
-	private List<PizzaOption> idPizzaOption;
+	@JoinColumn(name = "pizza_option_id")
+	private List<PizzaOption> pizzaOptions;
 
-	public Long getIdPizzaVariety() {
-		return idPizzaVariety;
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdPizzaVariety(Long idPizzaVariety) {
-		this.idPizzaVariety = idPizzaVariety;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public List<PizzaVariant> getIdPizzaVariant() {
-		return idPizzaVariant;
+	public List<PizzaVariant> getPizzaVariants() {
+		return pizzaVariants;
 	}
 
-	public void setIdPizzaVariant(List<PizzaVariant> idPizzaVariant) {
-		this.idPizzaVariant = idPizzaVariant;
+	public void setPizzaVariants(List<PizzaVariant> pizzaVariants) {
+		this.pizzaVariants = pizzaVariants;
 	}
 
-	public List<PizzaOption> getIdPizzaOption() {
-		return idPizzaOption;
+	public List<PizzaOption> getPizzaOptions() {
+		return pizzaOptions;
 	}
 
-	public void setIdPizzaOption(List<PizzaOption> idPizzaOption) {
-		this.idPizzaOption = idPizzaOption;
+	public void setPizzaOptions(List<PizzaOption> pizzaOptions) {
+		this.pizzaOptions = pizzaOptions;
 	}
+
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("PizzaVariety [idPizzaVariety=");
-		builder.append(idPizzaVariety);
-		builder.append(", idPizzaVariant=");
-		builder.append(idPizzaVariant);
-		builder.append(", idPizzaOption=");
-		builder.append(idPizzaOption);
-		builder.append("]");
-		return builder.toString();
+		return new StringJoiner(", ", PizzaVariety.class.getSimpleName() + "[", "]")
+				.add("id=" + id)
+				.add("pizzaVariants=" + pizzaVariants)
+				.add("pizzaOptions=" + pizzaOptions)
+				.toString();
 	}
-
 }
