@@ -1,66 +1,42 @@
 package com.springlabs.pizzastore.domain;
 
-
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.StringJoiner;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity
-@Table(name="tbl_pizza")
+@Table(name = "tbl_pizza")
 public class Pizza {
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "id_pizza")
 	private Long id;
 
-    @NotNull
-    @Size(min = 2)
-    @Column(name = "`name`")
-    private String name;
+	@NotNull
+	@Size(min = 2)
+	@Column(name = "`name`")
+	private String name;
 
-    @Column(name = "price")
-    private BigDecimal price;
+	@Column(name = "`desc`")
+	private String description;
 
-    @Column(name = "`desc`")
-    private String description;
-    
-    @ManyToOne
-    @JoinColumn(name = "category_default")
-    private Category category;
-
-//	@OneToMany
-//    private PizzaVariant pizzaVariant;
-//
-
-    @Transient
-    private List<Category> secondaryCategories;
-
-
-    
-    public Pizza() {
-	}
-	
-    public Pizza(String name, String description, BigDecimal price) {
+	public Pizza(String name, String description, BigDecimal price) {
 		this.name = name;
 		this.description = description;
-		this.price = price;
 	}
-	
-	public Pizza(String name, String description, BigDecimal price, Category category, Long quantity, BigDecimal tax) {
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.category = category;
+
+	public Pizza() {
+		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -70,22 +46,14 @@ public class Pizza {
 	}
 
 	public String getName() {
-        return this.name;
-    }
+		return this.name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public BigDecimal getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
@@ -93,34 +61,17 @@ public class Pizza {
 		this.description = description;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-	
-	public List<Category> getSecondaryCategories() {
-		return secondaryCategories;
-	}
-
-	public void setSecondaryCategories(List<Category> secondaryCategories) {
-		this.secondaryCategories = secondaryCategories;
-	}
-
-
 	@Override
 	public String toString() {
-		return new StringJoiner(", ", Pizza.class.getSimpleName() + "[", "]")
-				.add("id=" + id)
-				.add("name='" + name + "'")
-				.add("price=" + price)
-				.add("description='" + description + "'")
-				.add("category=" + category)
-				.add("secondaryCategories=" + secondaryCategories)
-				.toString();
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pizza [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", description=");
+		builder.append(description);
+		builder.append("]");
+		return builder.toString();
 	}
-
 
 }

@@ -1,6 +1,7 @@
 package com.springlabs.pizzastore.controller;
 
-import com.springlabs.pizzastore.domain.Category;
+
+
 import com.springlabs.pizzastore.domain.CustomSecurityUser;
 import com.springlabs.pizzastore.domain.Pizza;
 import com.springlabs.pizzastore.domain.UserAccount;
@@ -11,12 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 
 @Controller
@@ -24,19 +23,18 @@ import java.util.List;
 public class OrderController {
 
 	@Autowired
+	OrderService orderService;
+	
+	@Autowired
 	PizzaService pizzaService;
 
-	@Autowired
-	OrderService orderService;
-
-
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	//add to cart
-	@GetMapping("/addToCart/{pizzaId}")
-	public ModelAndView addToCart(@PathVariable final Long pizzaId, ModelAndView modelAndView, Authentication authentication) {
-		logger.info("Pizza controller");
 
+	// add to cart
+	@RequestMapping(value = "/addToCart", method = RequestMethod.POST)
+	public RedirectView addStatus(@RequestParam("pizzaId") Long pizzaId, Authentication authentication) {
+		logger.info("Order controller");
+    
 		CustomSecurityUser customSecurityUser = (CustomSecurityUser) authentication.getPrincipal();
 		System.out.println("Principal: "+authentication.getPrincipal());
 		System.out.println("User ID: "+ customSecurityUser.getId());
@@ -46,23 +44,20 @@ public class OrderController {
 		System.out.println("Year of Birth: "+ customSecurityUser.getYearOfBirth());
 
 		Pizza pizza = pizzaService.getPizza(pizzaId);
-		if(pizza==null) {
-			//TODO: error page redirection
-		}
-		modelAndView.addObject("pizza", pizza);
-		modelAndView.setViewName("pizza/pizza");
-		return modelAndView;
+		logger.info("Ordered pizza : "+pizza.toString());
+//		orderService
+		return new RedirectView("/pizza/all");
 	}
 
-	//place order
+	// place order
 
-	//place shipping addr
+	// place shipping addr
 
-	//make payment
+	// make payment
 
-	//complete order
+	// complete order
 
-	//fetch order status
+	// fetch order status
 
-	//fetch order history
-}	
+	// fetch order history
+}
