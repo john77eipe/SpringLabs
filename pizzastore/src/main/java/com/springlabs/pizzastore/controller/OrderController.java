@@ -3,8 +3,8 @@ package com.springlabs.pizzastore.controller;
 
 
 import com.springlabs.pizzastore.domain.CustomSecurityUser;
-import com.springlabs.pizzastore.domain.Pizza;
-import com.springlabs.pizzastore.domain.UserAccount;
+import com.springlabs.pizzastore.domain.Order;
+import com.springlabs.pizzastore.domain.PizzaVariant;
 import com.springlabs.pizzastore.service.OrderService;
 import com.springlabs.pizzastore.service.PizzaService;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class OrderController {
 
 	// add to cart
 	@RequestMapping(value = "/addToCart", method = RequestMethod.POST)
-	public RedirectView addStatus(@RequestParam("pizzaId") Long pizzaId, Authentication authentication) {
+	public RedirectView addStatus(@RequestParam("pizzaVariantId") Long pizzaVariantId, Authentication authentication) {
 		logger.info("Order controller");
     
 		CustomSecurityUser customSecurityUser = (CustomSecurityUser) authentication.getPrincipal();
@@ -43,9 +43,9 @@ public class OrderController {
 		System.out.println("Email is: "+ customSecurityUser.getEmail());
 		System.out.println("Year of Birth: "+ customSecurityUser.getYearOfBirth());
 
-		Pizza pizza = pizzaService.getPizza(pizzaId);
-		logger.info("Ordered pizza : "+pizza.toString());
-//		orderService
+		PizzaVariant pizzaVariant = pizzaService.getPizzaVariant(pizzaVariantId);
+		logger.info("Ordered pizza : ", pizzaVariant.toString());
+		Order order = orderService.addToCart(customSecurityUser.getId(), pizzaVariant);
 		return new RedirectView("/pizza/all");
 	}
 

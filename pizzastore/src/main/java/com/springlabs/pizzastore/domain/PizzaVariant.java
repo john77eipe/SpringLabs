@@ -2,8 +2,6 @@ package com.springlabs.pizzastore.domain;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.StringJoiner;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,14 +44,14 @@ public class PizzaVariant {
 
 	@Column(name = "qty_on_sale")
 	private Integer onsale;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "pizza_id")
-	private Pizza pizzaId;
+	private Pizza pizza;
 
 	@OneToMany
-	@JoinColumn(name = "pizza_variety_id")
-	private List<PizzaVariety> pizzaVarieties;
+	@JoinColumn(name = "id_pizza_variety")
+	private List<PizzaVariety> pizzaVariety;
 
 	public Long getId() {
 		return id;
@@ -80,7 +78,7 @@ public class PizzaVariant {
 	}
 
 	public BigDecimal getPriceWithTax() {
-		return priceWithTax;
+		return price.add(tax);
 	}
 
 	public void setPriceWithTax(BigDecimal priceWithTax) {
@@ -119,35 +117,39 @@ public class PizzaVariant {
 		this.onsale = onsale;
 	}
 
-	public Pizza getPizzaId() {
-		return pizzaId;
+	public Pizza getPizza() {
+		return pizza;
 	}
-
-	public void setPizzaId(Pizza pizzaId) {
-		this.pizzaId = pizzaId;
-	}
-
-	public List<PizzaVariety> getPizzaVarieties() {
-		return pizzaVarieties;
-	}
-
-	public void setPizzaVarieties(List<PizzaVariety> pizzaVarieties) {
-		this.pizzaVarieties = pizzaVarieties;
+	
+	public void setPizza(Pizza pizza) {
+		this.pizza = pizza;
 	}
 
 	@Override
 	public String toString() {
-		return new StringJoiner(", ", PizzaVariant.class.getSimpleName() + "[", "]")
-				.add("id=" + id)
-				.add("sku='" + sku + "'")
-				.add("price=" + price)
-				.add("priceWithTax=" + priceWithTax)
-				.add("quantityOnHand=" + quantityOnHand)
-				.add("outOfStockThreshold=" + outOfStockThreshold)
-				.add("tax=" + tax)
-				.add("onsale=" + onsale)
-				.add("pizzaId=" + pizzaId)
-				.add("pizzaVarieties=" + pizzaVarieties)
-				.toString();
+		StringBuilder builder = new StringBuilder();
+		builder.append("PizzaVariant [id=");
+		builder.append(id);
+		builder.append(", sku=");
+		builder.append(sku);
+		builder.append(", price=");
+		builder.append(price);
+		builder.append(", priceWithTax=");
+		builder.append(priceWithTax);
+		builder.append(", quantityOnHand=");
+		builder.append(quantityOnHand);
+		builder.append(", outOfStockThreshold=");
+		builder.append(outOfStockThreshold);
+		builder.append(", tax=");
+		builder.append(tax);
+		builder.append(", onsale=");
+		builder.append(onsale);
+		builder.append(", pizza=");
+		builder.append(pizza);
+		builder.append(", pizzaVariety=");
+		builder.append(pizzaVariety);
+		builder.append("]");
+		return builder.toString();
 	}
+
 }

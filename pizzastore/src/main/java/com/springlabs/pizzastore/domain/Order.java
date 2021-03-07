@@ -2,6 +2,7 @@ package com.springlabs.pizzastore.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -38,8 +39,9 @@ public class Order {
     @Column(name = "total")
     private BigDecimal total;
 
-    @Transient
-    private List<OrderItem> orderItems;
+    @OneToMany
+    @JoinColumn(name = "id")
+    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     public Long getId() {
         return id;
