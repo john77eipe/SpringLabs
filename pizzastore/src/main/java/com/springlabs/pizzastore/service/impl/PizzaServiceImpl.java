@@ -1,14 +1,15 @@
 package com.springlabs.pizzastore.service.impl;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springlabs.pizzastore.domain.Pizza;
+import com.springlabs.pizzastore.domain.PizzaVariant;
 import com.springlabs.pizzastore.repository.impl.JpaPizzaRepository;
+import com.springlabs.pizzastore.repository.impl.JpaPizzaVariantRepository;
 import com.springlabs.pizzastore.service.PizzaService;
 
 
@@ -19,6 +20,9 @@ public class PizzaServiceImpl implements PizzaService {
 
     @Autowired
     private JpaPizzaRepository pizzaRepository;
+    
+    @Autowired
+    private JpaPizzaVariantRepository jpaPizzaVariantRepository;
 
     public PizzaServiceImpl(JpaPizzaRepository pizzaRepository) {
         this.pizzaRepository = pizzaRepository;
@@ -53,6 +57,20 @@ public class PizzaServiceImpl implements PizzaService {
         //pizza.setSecondaryCategories(otherCategories);
         logger.debug("End operation: getPizza: response:{} ", pizza);
 		return pizza;
+	}
+	
+	@Override
+	public PizzaVariant getPizzaVariant(Long pizzaVariantId) {
+		logger.debug("getPizzaVariant pizzaVariantId = ", pizzaVariantId);
+		PizzaVariant pizzaVariant = jpaPizzaVariantRepository.getOne(pizzaVariantId);
+		logger.debug("pizzaVariant = ", pizzaVariant);
+		return pizzaVariant;
+	}
+	
+	@Override
+	public List<PizzaVariant> findAllPizzaVariant(){
+		logger.debug("findAllPizzaVariant");
+		return jpaPizzaVariantRepository.findAll();
 	}
 
 }

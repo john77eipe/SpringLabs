@@ -3,6 +3,7 @@ package com.springlabs.pizzastore.service;
 import java.util.List;
 
 import com.springlabs.pizzastore.domain.Pizza;
+import com.springlabs.pizzastore.domain.PizzaVariant;
 
 public interface PizzaService {
 	
@@ -26,5 +27,20 @@ public interface PizzaService {
      * @param pizzaId
      */
     Pizza getPizza(final long pizzaId);
+
+	/**
+	 * Find PizzaVariant by pizzaVariantId
+	 * 
+	 * @param pizzaVariantId
+	 * 
+	 */
+	PizzaVariant getPizzaVariant(Long pizzaVariantId);
+
+	/**
+	 * List all Pizza variants from repository
+	 * 
+	 * @return
+	 */
+	List<PizzaVariant> findAllPizzaVariant();
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.springlabs.pizzastore.domain.Pizza;
+import com.springlabs.pizzastore.domain.PizzaVariant;
 import com.springlabs.pizzastore.service.PizzaService;
 
 
@@ -31,11 +32,12 @@ public class PizzaController {
 	@GetMapping("/all")
     public ModelAndView getAllPizzas(ModelAndView modelAndView) {
 		logger.info("Pizza controller");
-		List<Pizza> pizzaList = pizzaService.findAllPizzas();
-		if(pizzaList.isEmpty()) {
+		List<PizzaVariant> pizzaVariants = pizzaService.findAllPizzaVariant();
+		
+		if(pizzaVariants.isEmpty()) {
 			//TODO: error page redirection
 		}
-		modelAndView.addObject("pizzas", pizzaList);
+		modelAndView.addObject("pizzaVariants", pizzaVariants);
 		modelAndView.setViewName("pizza/pizzaList");
 		return modelAndView;
     }
