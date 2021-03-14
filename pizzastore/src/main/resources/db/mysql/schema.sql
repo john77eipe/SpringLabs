@@ -32,11 +32,11 @@ USE `store` ;
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `store`.`tbl_authorities` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `authority` VARCHAR(255) NULL DEFAULT NULL,
-  `user_id` BIGINT(20) NULL DEFAULT NULL,
+  `user_account_id` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `user_id_idx` (`user_id` ASC) VISIBLE)
+  INDEX `user_account_id_idx` (`user_account_id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 

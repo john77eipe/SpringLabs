@@ -1,6 +1,7 @@
 package com.springlabs.pizzastore.domain;
 
 import java.math.BigDecimal;
+import java.util.StringJoiner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class Pizza {
 	@Column(name = "`desc`")
 	private String description;
 
-	public Pizza(String name, String description, BigDecimal price) {
+	public Pizza(String name, String description) {
 		this.name = name;
 		this.description = description;
 	}
@@ -63,15 +64,11 @@ public class Pizza {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Pizza [id=");
-		builder.append(id);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", description=");
-		builder.append(description);
-		builder.append("]");
-		return builder.toString();
+		return new StringJoiner(", ", Pizza.class.getSimpleName() + "[", "]")
+				.add("id=" + id)
+				.add("name='" + name + "'")
+				.add("description='" + description + "'")
+				.toString();
 	}
 
 }

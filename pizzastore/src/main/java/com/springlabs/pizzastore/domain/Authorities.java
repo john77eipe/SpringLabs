@@ -15,6 +15,7 @@ public class Authorities implements GrantedAuthority {
 
 	private Long id;
 	private String authority;
+
 	private UserAccount userAccount;
 
 	@Id

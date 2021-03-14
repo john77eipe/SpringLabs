@@ -3,7 +3,9 @@ package com.springlabs.pizzastore.service;
 import java.util.List;
 
 import com.springlabs.pizzastore.domain.Pizza;
+import com.springlabs.pizzastore.domain.PizzaOption;
 import com.springlabs.pizzastore.domain.PizzaVariant;
+import com.springlabs.pizzastore.domain.PizzaVariety;
 
 public interface PizzaService {
 	
@@ -12,7 +14,7 @@ public interface PizzaService {
      *
      * @return
      */
-    List<Pizza> findAllPizzas();
+    List<Pizza> getAllPizzas();
 
     /**
      * Save a pizza to the repository
@@ -41,6 +43,13 @@ public interface PizzaService {
 	 * 
 	 * @return
 	 */
-	List<PizzaVariant> findAllPizzaVariant();
+	List<PizzaVariant> getAllPizzaVariants();
+
+
+	PizzaVariant savePizzaVariant(final PizzaVariant pizza);
+
+	PizzaOption savePizzaOption(final PizzaOption pizzaOption);
+
+	PizzaVariety savePizzaVariety(final PizzaOption pizzaOption, final Long pizzaVariantId);
 
 }

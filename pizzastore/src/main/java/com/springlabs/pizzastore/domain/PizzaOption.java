@@ -17,6 +17,14 @@ public class PizzaOption {
     @Column(name = "option_value")
     private String optionValue;
 
+	public PizzaOption() {
+	}
+
+	public PizzaOption(String optionType, String optionValue) {
+		this.optionType = optionType;
+		this.optionValue = optionValue;
+	}
+
 	public Long getId() {
 		return id;
 	}

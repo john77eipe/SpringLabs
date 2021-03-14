@@ -30,6 +30,13 @@ public class PizzaVariety {
 	@JoinColumn(name = "pizza_option_id")
 	private List<PizzaOption> pizzaOptions;
 
+	public PizzaVariety() {
+	}
+
+	public PizzaVariety(List<PizzaVariant> pizzaVariants, List<PizzaOption> pizzaOptions) {
+		this.pizzaVariants = pizzaVariants;
+		this.pizzaOptions = pizzaOptions;
+	}
 
 	public Long getId() {
 		return id;

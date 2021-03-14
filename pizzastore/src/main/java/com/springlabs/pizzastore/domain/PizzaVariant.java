@@ -2,6 +2,7 @@ package com.springlabs.pizzastore.domain;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.StringJoiner;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,15 +44,28 @@ public class PizzaVariant {
 	private BigDecimal tax;
 
 	@Column(name = "qty_on_sale")
-	private Integer onsale;
+	private Integer quantityOnSale;
 	
 	@ManyToOne
 	@JoinColumn(name = "pizza_id")
 	private Pizza pizza;
 
 	@OneToMany
-	@JoinColumn(name = "id_pizza_variety")
+	@JoinColumn(name = "pizza_variety_id")
 	private List<PizzaVariety> pizzaVariety;
+
+	public PizzaVariant() {
+	}
+
+	public PizzaVariant(@NotNull String sku, BigDecimal price, Long quantityOnHand, Long outOfStockThreshold, BigDecimal tax, Integer quantityOnSale, Pizza pizza) {
+		this.sku = sku;
+		this.price = price;
+		this.quantityOnHand = quantityOnHand;
+		this.outOfStockThreshold = outOfStockThreshold;
+		this.tax = tax;
+		this.quantityOnSale = quantityOnSale;
+		this.pizza = pizza;
+	}
 
 	public Long getId() {
 		return id;
@@ -109,12 +123,12 @@ public class PizzaVariant {
 		this.tax = tax;
 	}
 
-	public Integer getOnsale() {
-		return onsale;
+	public Integer getQuantityOnSale() {
+		return quantityOnSale;
 	}
 
-	public void setOnsale(Integer onsale) {
-		this.onsale = onsale;
+	public void setQuantityOnSale(Integer quantityOnSale) {
+		this.quantityOnSale = quantityOnSale;
 	}
 
 	public Pizza getPizza() {
@@ -125,31 +139,28 @@ public class PizzaVariant {
 		this.pizza = pizza;
 	}
 
+	public List<PizzaVariety> getPizzaVariety() {
+		return pizzaVariety;
+	}
+
+	public void setPizzaVariety(List<PizzaVariety> pizzaVariety) {
+		this.pizzaVariety = pizzaVariety;
+	}
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("PizzaVariant [id=");
-		builder.append(id);
-		builder.append(", sku=");
-		builder.append(sku);
-		builder.append(", price=");
-		builder.append(price);
-		builder.append(", priceWithTax=");
-		builder.append(priceWithTax);
-		builder.append(", quantityOnHand=");
-		builder.append(quantityOnHand);
-		builder.append(", outOfStockThreshold=");
-		builder.append(outOfStockThreshold);
-		builder.append(", tax=");
-		builder.append(tax);
-		builder.append(", onsale=");
-		builder.append(onsale);
-		builder.append(", pizza=");
-		builder.append(pizza);
-		builder.append(", pizzaVariety=");
-		builder.append(pizzaVariety);
-		builder.append("]");
-		return builder.toString();
+		return new StringJoiner(", ", PizzaVariant.class.getSimpleName() + "[", "]")
+				.add("id=" + id)
+				.add("sku='" + sku + "'")
+				.add("price=" + price)
+				.add("priceWithTax=" + priceWithTax)
+				.add("quantityOnHand=" + quantityOnHand)
+				.add("outOfStockThreshold=" + outOfStockThreshold)
+				.add("tax=" + tax)
+				.add("quantityOnSale=" + quantityOnSale)
+				.add("pizza=" + pizza)
+				.add("pizzaVariety=" + pizzaVariety)
+				.toString();
 	}
 
 }

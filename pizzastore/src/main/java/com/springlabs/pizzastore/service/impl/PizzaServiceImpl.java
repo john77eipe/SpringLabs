@@ -1,6 +1,9 @@
 package com.springlabs.pizzastore.service.impl;
 
 import java.util.List;
+
+import com.springlabs.pizzastore.domain.PizzaOption;
+import com.springlabs.pizzastore.domain.PizzaVariety;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +33,10 @@ public class PizzaServiceImpl implements PizzaService {
 
 
     @Override
-    public List<Pizza> findAllPizzas() {
+    public List<Pizza> getAllPizzas() {
         logger.debug("Begin operation: findAllPizzas ");
         List<Pizza> pizzaList = pizzaRepository.findAll();
-//        List<PizzaResponse> listBases = findAll.stream().map(LayerMapping.getPizzaToPizzaResponseMapperLambdaFunction())
-//                .collect(Collectors.toList());
+
         logger.debug("End operation: findAllPizzas: response:{} ", pizzaList);
         return pizzaList;
     }
@@ -68,9 +70,24 @@ public class PizzaServiceImpl implements PizzaService {
 	}
 	
 	@Override
-	public List<PizzaVariant> findAllPizzaVariant(){
+	public List<PizzaVariant> getAllPizzaVariants(){
 		logger.debug("findAllPizzaVariant");
 		return jpaPizzaVariantRepository.findAll();
 	}
+
+    @Override
+    public PizzaVariant savePizzaVariant(PizzaVariant pizza) {
+        return null;
+    }
+
+    @Override
+    public PizzaOption savePizzaOption(PizzaOption pizzaOption) {
+        return null;
+    }
+
+    @Override
+    public PizzaVariety savePizzaVariety(PizzaOption pizzaOption, Long pizzaVariantId) {
+        return null;
+    }
 
 }

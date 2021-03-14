@@ -1,7 +1,12 @@
 package com.springlabs.pizzastore.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import com.springlabs.pizzastore.domain.PizzaOption;
+import com.springlabs.pizzastore.domain.PizzaVariety;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +37,7 @@ public class PizzaController {
 	@GetMapping("/all")
     public ModelAndView getAllPizzas(ModelAndView modelAndView) {
 		logger.info("Pizza controller");
-		List<PizzaVariant> pizzaVariants = pizzaService.findAllPizzaVariant();
+		List<PizzaVariant> pizzaVariants = pizzaService.getAllPizzaVariants();
 		
 		if(pizzaVariants.isEmpty()) {
 			//TODO: error page redirection
@@ -43,7 +48,7 @@ public class PizzaController {
     }
 	
 	@GetMapping("/{pizzaId}")
-    public ModelAndView getAllPizzas(@PathVariable final Long pizzaId, ModelAndView modelAndView) {
+    public ModelAndView getPizza(@PathVariable final Long pizzaId, ModelAndView modelAndView) {
 		logger.info("Pizza controller");
 		Pizza pizza = pizzaService.getPizza(pizzaId);
 		if(pizza==null) {
@@ -63,25 +68,48 @@ public class PizzaController {
 	
 	@PostMapping("/save")
     public RedirectView savePizza(
-    		@RequestParam String pizza_name, 
-    		@RequestParam String pizza_desc, 
-    		@RequestParam String pizza_price, 
-    		@RequestParam String pizza_cat,
-    		@RequestParam(defaultValue = "100") String pizza_quantity,
-    		@RequestParam(required = false, defaultValue = "0") String pizza_tax) {
+    		@RequestParam(required = true) String pizzaName,
+    		@RequestParam(required = true) String pizzaDesc) {
 		logger.info("Pizza controller");
-//		Category existing_pizzaCategory = pizzaService.getPizzaCategory(Long.parseLong(pizza_cat));
-//		Long quantity = Long.valueOf(pizza_quantity);
-//		BigDecimal tax =  BigDecimal.valueOf(Double.parseDouble(pizza_tax));
-//		Pizza pizzaSaved = pizzaService.savePizza(
-//				new Pizza(pizza_name, 
-//						pizza_desc, 
-//						BigDecimal.valueOf(Double.parseDouble(pizza_price)), 
-//						existing_pizzaCategory,
-//						quantity,
-//						tax)
-//				);
-//		logger.info("Pizza saved: " + pizzaSaved);
+		Pizza pizzaSaved = pizzaService.savePizza(new Pizza(pizzaName, pizzaDesc));
+		logger.info("Pizza saved: " + pizzaSaved);
 		return new RedirectView("/pizza/all");
     }
+
+
+	@PostMapping("/option/save")
+	public RedirectView savePizzaOption(
+			@RequestParam(required = true) String optionType,
+			@RequestParam(required = true) String optionValue) {
+		logger.info("Pizza controller");
+		PizzaOption pizzaOptionSaved = pizzaService.savePizzaOption(new PizzaOption(optionType, optionValue));
+		logger.info("Pizza Option saved: " + pizzaOptionSaved);
+		return new RedirectView("/pizza/all");
+	}
+
+
+	@GetMapping("/variant/save")
+	public RedirectView savePizzaVariant(
+			@RequestParam Long pizzaId,
+			@RequestParam String sku,
+			@RequestParam BigDecimal price,
+			@RequestParam(defaultValue = "100") Long quantityOnHand,
+			@RequestParam(required = false, defaultValue = "1") Long outOfStockThreshold,
+			@RequestParam(required = false, defaultValue = "0") BigDecimal tax,
+			@RequestParam(required = true) Integer quantityOnSale,
+			@RequestParam HashMap<String, String> pizzaOptions) {
+		logger.info("Pizza controller");
+		Pizza pizza = pizzaService.getPizza(pizzaId);
+		PizzaVariant pizzaVariant = new PizzaVariant(sku, price, quantityOnHand, outOfStockThreshold, tax, quantityOnSale, pizza);
+		PizzaVariant pizzaVariantSaved = pizzaService.savePizzaVariant(pizzaVariant);
+		List<PizzaVariety> pizzaVarietyList = new ArrayList<>();
+		pizzaOptions.forEach((k, v) -> {
+			PizzaOption pizzaOption = new PizzaOption(k, v);
+			//map PizzaVariant and Options
+			PizzaVariety pizzaVariety = pizzaService.savePizzaVariety(pizzaOption, pizzaVariantSaved.getId());
+			pizzaVarietyList.add(pizzaVariety);
+		});
+		pizzaVariant.setPizzaVariety(pizzaVarietyList);
+		return new RedirectView("/pizza/all");
+	}
 }	

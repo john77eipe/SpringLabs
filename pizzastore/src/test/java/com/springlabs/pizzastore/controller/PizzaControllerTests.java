@@ -38,7 +38,7 @@ public class PizzaControllerTests {
         Pizza pizza2 = new Pizza();
         pizza2.setId(1L);
         pizza2.setName("test pizza 2");
-        given(this.pizzaService.findAllPizzas()).willReturn(Lists.newArrayList(pizza1, pizza2));
+        //given(this.pizzaService.getAllPizzas()).willReturn(pizza1));
     }
 
     @Test

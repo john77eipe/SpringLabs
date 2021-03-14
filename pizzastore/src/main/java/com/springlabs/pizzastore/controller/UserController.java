@@ -45,12 +45,6 @@ public class UserController {
         return "user/profile";
     }
 
-    @PostMapping("/login")
-    public String login() {
-        logger.info("User controller");
-        logger.info("User login initiated");
-        return "pizza/pizzaList";
-    }
 
     @PostMapping("/register")
     public String register(SignupRequestDTO signupRequest) {
