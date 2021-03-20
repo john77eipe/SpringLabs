@@ -30,7 +30,6 @@ spring:
        url: jdbc:mysql://localhost:3306/store
        username: root
        password: Passw0rd
-       driverClassName: com.mysql.jdbc.Driver
        initialization-mode: always
        data: classpath*:db/mysql/data.sql
        schema: classpath*:db/mysql/schema.sql

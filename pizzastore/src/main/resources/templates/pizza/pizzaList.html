@@ -4,6 +4,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:include="fragments/staticFiles"></th:block>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <body>
 	<div class="container">
@@ -13,10 +14,16 @@
 		<!-- Pizza list goes here -->
         
 		<div class="row">
-			<div class="leftcolumn" th:each="pizza : ${pizzas}">
+			<div class="leftcolumn" th:each="pizzaVariant : ${pizzaVariants}">
 				<div class="card">
-					<h2><a th:href = "@{'/pizza/' + ${pizza.id}}" th:text="${pizza.name}"></a></h2>
-					<h5 th:text="${pizza.price}">Price: $ </h5>
+					<h2><a th:href = "@{'/pizza/' + ${pizzaVariant.id}}" th:text="${pizzaVariant.pizza.name}"></a></h2>
+					<h5 th:text="${pizzaVariant.price}">Price: $ </h5>
+					<div align="right">
+						<form th:action="@{/order/addToCart}" method="post">
+							<input type="hidden" th:value="${pizzaVariant.pizza.id}" name="pizzaId">
+							<button type="submit" class="btn btn-primary">Add to cart</button>
+						</form>
+					</div>
 				</div>
   			</div>
 			<div class="rightcolumn">

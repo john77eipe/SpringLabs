@@ -57,22 +57,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		//Note that the order of the antMatchers() elements is significant 
 		//the more specific rules need to come first, followed by the more general ones
 		httpSecurity
-		//.csrf().disable()
+//                .authorizeRequests().antMatchers("/").permitAll();
+		.csrf().disable()
 		.authorizeRequests()
-			.antMatchers("/rest/user/**").hasAnyRole("CUSTOMER", "OWNER", "ADMIN")
-	        .antMatchers("/loginPage").permitAll()
-			.antMatchers("/register/**").permitAll()
+			.antMatchers("/admin/**").hasAnyRole("ADMIN", "OWNER")
+			.antMatchers("/order/**").hasAnyRole("CUSTOMER", "OWNER", "ADMIN")
+			.antMatchers("/user/**").permitAll()
+			.antMatchers("/pizza/**").permitAll()
 	        .antMatchers("/**", "/css/**", "/js/**", "/images/**").permitAll()
 	        .and()
 	        .formLogin()
-		        .loginPage("/loginPage")
-		        .loginProcessingUrl("/login")
+		        .loginPage("/user/loginPage")
+		        .loginProcessingUrl("/user/login")
 				.usernameParameter("email")  //since we use email and not username as the principal of authentication
 	        .failureHandler(authenticationFailureHandler)
 	        .successHandler(authenticationSuccessHandler)
 	        .and()
 		        .logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
+				.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout**"))
 				.logoutSuccessUrl("/")
 	        .deleteCookies("JSESSIONID");
     }

@@ -4,16 +4,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.StringJoiner;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
+@Table(name="tbl_user")
 public class UserAccount {
 
     private static final long serialVersionUID = 7269636569471509761L;
@@ -22,10 +18,19 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "display_name")
     private String displayName;
+
+    @Column(name = "yob")
     private int yearOfBirth;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userAccount")
@@ -88,4 +93,16 @@ public class UserAccount {
         this.displayName = displayName;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", UserAccount.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("email='" + email + "'")
+                .add("password='" + password + "'")
+                .add("firstName='" + firstName + "'")
+                .add("displayName='" + displayName + "'")
+                .add("yearOfBirth=" + yearOfBirth)
+                .add("authorities=" + authorities)
+                .toString();
+    }
 }

@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.springlabs.pizzastore.service.PizzaService;
 
 @Controller
-@RequestMapping("/welcome")
+@RequestMapping("/")
 public class HomeController {
 	
 	PizzaService pizzaService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@GetMapping
-    public String home() {
-		// Note that you don't need a ModelAndView bean. Spring will take care of it if it's 
+	public String home() {
+		// Note that you don't need a ModelAndView bean. Spring will take care of it if it's
 		// just a simple forward.
-		logger.info("Welcome controller");
+		logger.info("Home controller");
 		return "welcome";
-    }
+	}
 }	

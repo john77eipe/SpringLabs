@@ -1,17 +1,18 @@
 package com.springlabs.pizzastore.service.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
+import com.springlabs.pizzastore.domain.PizzaOption;
+import com.springlabs.pizzastore.domain.PizzaVariety;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springlabs.pizzastore.domain.Pizza;
-import com.springlabs.pizzastore.domain.Category;
-import com.springlabs.pizzastore.repository.impl.JpaCategoryRepository;
+import com.springlabs.pizzastore.domain.PizzaVariant;
 import com.springlabs.pizzastore.repository.impl.JpaPizzaRepository;
+import com.springlabs.pizzastore.repository.impl.JpaPizzaVariantRepository;
 import com.springlabs.pizzastore.service.PizzaService;
 
 
@@ -22,9 +23,9 @@ public class PizzaServiceImpl implements PizzaService {
 
     @Autowired
     private JpaPizzaRepository pizzaRepository;
-
+    
     @Autowired
-    private JpaCategoryRepository pizzaCategoryRepository;
+    private JpaPizzaVariantRepository jpaPizzaVariantRepository;
 
     public PizzaServiceImpl(JpaPizzaRepository pizzaRepository) {
         this.pizzaRepository = pizzaRepository;
@@ -32,11 +33,10 @@ public class PizzaServiceImpl implements PizzaService {
 
 
     @Override
-    public List<Pizza> findAllPizzas() {
+    public List<Pizza> getAllPizzas() {
         logger.debug("Begin operation: findAllPizzas ");
         List<Pizza> pizzaList = pizzaRepository.findAll();
-//        List<PizzaResponse> listBases = findAll.stream().map(LayerMapping.getPizzaToPizzaResponseMapperLambdaFunction())
-//                .collect(Collectors.toList());
+
         logger.debug("End operation: findAllPizzas: response:{} ", pizzaList);
         return pizzaList;
     }
@@ -54,27 +54,40 @@ public class PizzaServiceImpl implements PizzaService {
 	public Pizza getPizza(long pizzaId) {
 		logger.debug("Begin operation: getPizza: request:{} ", pizzaId);
         Pizza pizza = pizzaRepository.getOne(pizzaId);
-        List<Category> otherCategories = pizzaCategoryRepository.fetchSecondaryPizzaCategories(pizzaId);
-        logger.debug("Fetched non-default categories: "+otherCategories);
-        pizza.setSecondaryCategories(otherCategories);
+        //List<Category> otherCategories = pizzaCategoryRepository.fetchSecondaryPizzaCategories(pizzaId);
+        //logger.debug("Fetched non-default categories: "+otherCategories);
+        //pizza.setSecondaryCategories(otherCategories);
         logger.debug("End operation: getPizza: response:{} ", pizza);
 		return pizza;
 	}
-
+	
 	@Override
-	public List<Category> findAllPizzaCategories() {
-		logger.debug("Begin operation: getPizzaCategories");
-		List<Category> pizzaCategoryList = pizzaCategoryRepository.findAll();
-        logger.debug("End operation: getPizzaCategories: response:{} ", pizzaCategoryList);
-		return pizzaCategoryList;
+	public PizzaVariant getPizzaVariant(Long pizzaVariantId) {
+		logger.debug("getPizzaVariant pizzaVariantId = ", pizzaVariantId);
+		PizzaVariant pizzaVariant = jpaPizzaVariantRepository.getOne(pizzaVariantId);
+		logger.debug("pizzaVariant = ", pizzaVariant);
+		return pizzaVariant;
 	}
 	
 	@Override
-	public Category getPizzaCategory(final long categoryId) {
-		logger.debug("Begin operation: getPizzaCategory: request:{} ", categoryId);
-        Category pizzaCategory = pizzaCategoryRepository.getOne(categoryId);
-        logger.debug("End operation: getPizzaCategory: response:{} ", pizzaCategory);
-		return pizzaCategory;
+	public List<PizzaVariant> getAllPizzaVariants(){
+		logger.debug("findAllPizzaVariant");
+		return jpaPizzaVariantRepository.findAll();
 	}
+
+    @Override
+    public PizzaVariant savePizzaVariant(PizzaVariant pizza) {
+        return null;
+    }
+
+    @Override
+    public PizzaOption savePizzaOption(PizzaOption pizzaOption) {
+        return null;
+    }
+
+    @Override
+    public PizzaVariety savePizzaVariety(PizzaOption pizzaOption, Long pizzaVariantId) {
+        return null;
+    }
 
 }

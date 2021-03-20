@@ -5,8 +5,9 @@
 </header>
 
 <nav class="topnav">
-  <a href="/welcome">Home</a>
+  <a href="/">Home</a>
   <a href="/pizza/all">Menu</a>
   <a href="#">Create</a>
-  <a href="#" style="float:right">Login</a>
+  <span sec:authorize="!isFullyAuthenticated()"><a href="/user/loginPage" style="float:right">Login</a></span>
+  <span sec:authorize="isFullyAuthenticated()"><a href="/user/logout" style="float:right">Logout</a></span>
 </nav>

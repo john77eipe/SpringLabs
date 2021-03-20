@@ -1,19 +1,21 @@
 package com.springlabs.pizzastore.controller;
 
-import com.springlabs.pizzastore.domain.Category;
-import com.springlabs.pizzastore.domain.Pizza;
+
+
+import com.springlabs.pizzastore.domain.CustomSecurityUser;
+import com.springlabs.pizzastore.domain.Order;
+import com.springlabs.pizzastore.domain.PizzaVariant;
 import com.springlabs.pizzastore.service.OrderService;
 import com.springlabs.pizzastore.service.PizzaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 
 @Controller
@@ -21,24 +23,41 @@ import java.util.List;
 public class OrderController {
 
 	@Autowired
-	PizzaService pizzaService;
-
-	@Autowired
 	OrderService orderService;
 	
+	@Autowired
+	PizzaService pizzaService;
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	//add to cart
 
-	//place order
+	// add to cart
+	@RequestMapping(value = "/addToCart", method = RequestMethod.POST)
+	public RedirectView addStatus(@RequestParam("pizzaVariantId") Long pizzaVariantId, Authentication authentication) {
+		logger.info("Order controller");
+    
+		CustomSecurityUser customSecurityUser = (CustomSecurityUser) authentication.getPrincipal();
+		System.out.println("Principal: "+authentication.getPrincipal());
+		System.out.println("User ID: "+ customSecurityUser.getId());
+		System.out.println("User has authorities: " + customSecurityUser.getAuthorities());
+		System.out.println("First name: "+ customSecurityUser.getFirstName());
+		System.out.println("Email is: "+ customSecurityUser.getEmail());
+		System.out.println("Year of Birth: "+ customSecurityUser.getYearOfBirth());
 
-	//place shipping addr
+		PizzaVariant pizzaVariant = pizzaService.getPizzaVariant(pizzaVariantId);
+		logger.info("Ordered pizza : ", pizzaVariant.toString());
+		Order order = orderService.addToCart(customSecurityUser.getId(), pizzaVariant);
+		return new RedirectView("/pizza/all");
+	}
 
-	//make payment
+	// place order
 
-	//complete order
+	// place shipping addr
 
-	//fetch order status
+	// make payment
 
-	//fetch order history
-}	
+	// complete order
+
+	// fetch order status
+
+	// fetch order history
+}

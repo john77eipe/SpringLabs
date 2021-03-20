@@ -28,13 +28,12 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
                                         Authentication authentication) throws IOException, ServletException {
     	 Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		 for (GrantedAuthority grantedAuthority : authorities) {
-		     if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-		    	 redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/adminPage");
-		         break;
-		     } else {
-		    	 redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/userPage");
-		    	 break;
-		     }
+		     if (grantedAuthority.getAuthority().equals("ROLE_ADMIN") || grantedAuthority.getAuthority().equals("ROLE_OWNER")) {
+		    	 redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/user/profilePage");
+			 } else {
+		    	 redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/user/profilePage");
+			 }
+			 break;
 		 }
       
         

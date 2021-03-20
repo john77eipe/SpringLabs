@@ -38,7 +38,7 @@ The fictional customer needs a online e-commerce store for his pizza outlet.
 
 Let's define the usecase presented by our fictional customer for the phase 1 of implementation.
 
-Roles:
+**Roles**:
 
 The below list are the roles defined within the system.
 
@@ -50,7 +50,7 @@ The below list are the roles defined within the system.
 
 There is no concept of a checkout and payment (to keep the usecase simple)
 
-Screens:
+**Screens**:
 
 1. Welcome screen, 
 2. Register screen,
@@ -61,7 +61,7 @@ Screens:
 7. Admin screen (to add and delete pizza), 
 8. Orders screen (to view the orders)
 
-Flow:
+**Flow**:
 
 - A Guest can view pizzas and only registered users can order a pizza.
 - Pizza's marked as ordered by a customer will be shown to the customer's home screen and also to the admin.
@@ -132,7 +132,7 @@ Repository:
 
 
 
-![Screen Shot 2019-05-27 at 1.30.53 PM](/Users/johne/Desktop/Screen Shot 2019-05-27 at 1.30.53 PM.png)
+![1](./imgs/1.png)
 
 
 
@@ -151,7 +151,7 @@ Few things to note:
 
 We started with branch [basic-spring-boot-maven](https://github.com/john77eipe/SpringLabs/blob/basic-spring-boot-maven) and then we advanced into [crud-jpa-spring-boot-maven](https://github.com/john77eipe/SpringLabs/tree/crud-jpa-spring-boot-maven) branch.
 
-###Challenges:
+### Challenges:
 
 There were quite a few challenges when starting with this.
 
@@ -182,9 +182,9 @@ There were quite a few challenges when starting with this.
 
      - analyze this by viewing your generated target folder and the deployment assembly setting.
 
-     - ![Screen Shot 2019-05-27 at 2.19.00 PM](/Users/johne/Desktop/Screen Shot 2019-05-27 at 2.19.00 PM.png)
+     - ![2](./imgs/2.png)
 
-     - ![Screen Shot 2019-05-27 at 3.00.11 PM](/Users/johne/Desktop/Screen Shot 2019-05-27 at 3.00.11 PM.png)
+     - ![3](./imgs/3.png)
 
      - Links for more clarity
 
@@ -274,9 +274,7 @@ There were quite a few challenges when starting with this.
 
       Spring uses logback as an implementation by default and also adds bridges for JUL (Java.util.logging) and log4j incase any other dependencies need it.
 
-      As can be seen above `log4j-to-slf4j` jar acts as a adapter allows applications coded to the Log4j 2 API to be routed to SLF4J. But, this is actually a performance issue (https://logging.apache.org/log4j/2.0/log4j-to-slf4j/index.html)
-
-      We are not going to be bothered about it as of now and we use the default logback and slf4j api.
+      We will continue to use the default logback and slf4j api.
 
 8. Debugging the application
 
@@ -455,7 +453,7 @@ Few things to note:
 
 ## Sprint 2: MySQL and Schema Refactoring
 
-###Objectives:
+### Objectives:
 
 1. Refactor table names to `tbl_` format
 
@@ -471,7 +469,7 @@ Few things to note:
 
 7. Expected:
 
-   <img src="/Users/johne/Desktop/store.png" alt="store" style="zoom:100%;" />
+   ![store](./imgs/store.png)
 
 
 
@@ -479,7 +477,7 @@ Few things to note:
 
 Commited on branch: [schema-refined-spring-boot-maven](https://github.com/john77eipe/SpringLabs/tree/schema-refined-spring-boot-maven)
 
-<img src="/Users/johne/Desktop/Screenshot 2020-01-15 at 12.33.37 PM.png" alt="Screenshot 2020-01-15 at 12.33.37 PM" style="zoom:80%;" />
+<img src="./imgs/4.png" alt="4" style="zoom:100%;" />
 
 
 
@@ -642,7 +640,7 @@ SELECT C.id as id, C.category as category FROM tbl_category C INNER JOIN tbl_piz
 
 Commited on branch: [fine-tuning-spring-boot-maven](https://github.com/john77eipe/SpringLabs/tree/fine-tuning-spring-boot-maven)
 
-###Challenges:
+### Challenges:
 
 - JSP to Thymeleaf
 
@@ -741,7 +739,7 @@ Revisiting the requirements from phase 1.
 
 Let's see what is left out.
 
-Screens:
+**Screens**:
 
 1. Welcome screen - complete
 2. Register screen - pending
@@ -768,7 +766,7 @@ Action items for this sprint:
     - Supporting email, display name, password, year of birth
     - Users are of 3 types: 
         customers, 
-        owners (one or more owners are possible-  this person is financially responsible for the estore; this role has exclusive access to various account and order-related features), 
+        owners (one or more owners are possible-  this person is financially responsible for the e-store; this role has exclusive access to various account and order-related features), 
         admins (only one - this is a service account and is super user. Should be used only at the start for setting up the accounts and not on a daily basis)
     2. Address
     - Supporting basic address fields for both billing and shipping
@@ -790,6 +788,26 @@ Action items for this sprint:
     6. Admin screen to support delete and edits of pizzas
     7. Admin screen to support marking a pizza for published(available-on-store)
     8. Add filter to pizza listing screen to filter only published pizzas
-    
 
+
+### Challenges:
+
+- Incorrect YML config
+    I had Driver class mentioned in the YML config and it was using a deprecated driver class. 
+  Note that there is no need to specify Driver class in latest versions of Spring.
+  How did I know this? It's there in the logs
+    ```log
+    [restartedMain] 17:54:28 DEBUG DefaultListableBeanFactory.createArgumentArray:795 - Autowiring by type from bean name 'dataSource' via factory method to bean named 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties'
+    Loading class `com.mysql.jdbc.Driver`. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver`. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+    ```
+- Database initialization conflict 
+  Database initialization is excellant for Dev and Test environments.
+  We were making it work using the `initialization-mode` property in application.yml. 
+  Later realized that there are 2 ways to specify this
+    1. JPA configuration using `spring.jpa.generate-ddl` and `spring.jpa.hibernate.ddl-auto`
+    2. Spring configuration using `spring.datasource.initialization-mode`
+  More details on how to configure these are here:  https://docs.spring.io/spring-boot/docs/2.0.0.M7/reference/html/howto-database-initialization.html
+- The .sql files used for initialization had -- for comments and it was causing issues. 
+  Well doesn't MySQL consider the common -- as comments? Well anser is yes and no.
+  The catch here is that it has to be `-- ` with a space succeeding.
 
