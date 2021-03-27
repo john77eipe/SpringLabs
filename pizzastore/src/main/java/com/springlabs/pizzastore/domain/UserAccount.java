@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="tbl_user")
-public class UserAccount {
+public class UserAccount extends BaseEntity {
 
     private static final long serialVersionUID = 7269636569471509761L;
 

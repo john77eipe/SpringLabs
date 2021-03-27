@@ -20,4 +20,16 @@ public interface OrderService {
 	 */
 	Order addToCart(Long id, PizzaVariant pizzaVariant);
 
+	/**
+	 * @param id
+	 * @return
+	 */
+	Order getCurrentOrder(Long userId);
+
+	/**
+	 * @param itemId
+	 * @return
+	 */
+	Boolean cancelItemById(Long itemId);
+
 }

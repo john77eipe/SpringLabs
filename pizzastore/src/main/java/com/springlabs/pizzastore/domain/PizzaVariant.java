@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tbl_pizza_variant")
-public class PizzaVariant {
+public class PizzaVariant extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +51,7 @@ public class PizzaVariant {
 	private Pizza pizza;
 
 	@OneToMany
-	@JoinColumn(name = "pizza_variety_id")
+	@JoinColumn(name = "id")
 	private List<PizzaVariety> pizzaVariety;
 
 	public PizzaVariant() {
@@ -145,22 +145,6 @@ public class PizzaVariant {
 
 	public void setPizzaVariety(List<PizzaVariety> pizzaVariety) {
 		this.pizzaVariety = pizzaVariety;
-	}
-
-	@Override
-	public String toString() {
-		return new StringJoiner(", ", PizzaVariant.class.getSimpleName() + "[", "]")
-				.add("id=" + id)
-				.add("sku='" + sku + "'")
-				.add("price=" + price)
-				.add("priceWithTax=" + priceWithTax)
-				.add("quantityOnHand=" + quantityOnHand)
-				.add("outOfStockThreshold=" + outOfStockThreshold)
-				.add("tax=" + tax)
-				.add("quantityOnSale=" + quantityOnSale)
-				.add("pizza=" + pizza)
-				.add("pizzaVariety=" + pizzaVariety)
-				.toString();
 	}
 
 }

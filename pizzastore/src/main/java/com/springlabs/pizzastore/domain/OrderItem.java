@@ -3,6 +3,7 @@ package com.springlabs.pizzastore.domain;
 import java.math.BigDecimal;
 import java.util.StringJoiner;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,19 +16,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="tbl_order_item")
-public class OrderItem {
+public class OrderItem extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "pizza_variant_id")
+    @JoinColumn(referencedColumnName = "id")
     private PizzaVariant pizzaVariant;
 
     @Column(name = "unit_price")
@@ -91,8 +92,8 @@ public class OrderItem {
     public String toString() {
         return new StringJoiner(", ", OrderItem.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
-                .add("order=" + order)
-                .add("pizzaVariant=" + pizzaVariant)
+                .add("order=" + order.getId())
+//                .add("pizzaVariant=" + pizzaVariant)
                 .add("unitPrice=" + unitPrice)
                 .add("quantity=" + quantity)
                 .add("totalPrice=" + totalPrice)

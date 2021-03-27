@@ -10,14 +10,14 @@ import java.util.StringJoiner;
 
 @Entity
 @Table(name = "tbl_address")
-public class Address {
+public class Address extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Long id;
 
-	@Column(name = "fullname")
+	@Column(name = "full_name")
 	private String name;
 
 	@Column
@@ -166,6 +166,14 @@ public class Address {
 				.add("defaultBilling=" + defaultBilling)
 				.add("defaultShipping=" + defaultShipping)
 				.toString();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

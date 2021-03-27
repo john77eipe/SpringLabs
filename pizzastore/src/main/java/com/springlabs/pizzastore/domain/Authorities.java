@@ -9,7 +9,7 @@ import java.util.StringJoiner;
 
 @Entity
 @Table(name="tbl_authorities")
-public class Authorities implements GrantedAuthority {
+public class Authorities extends BaseEntity implements GrantedAuthority {
 
 	private static final long serialVersionUID = -8123526131047887755L;
 

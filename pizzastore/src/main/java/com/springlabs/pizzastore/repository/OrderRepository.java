@@ -3,8 +3,11 @@ package com.springlabs.pizzastore.repository;
 import com.springlabs.pizzastore.domain.Order;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderRepository {
+
+	Optional<Order> findByUserId(Long userId);
 
 	// add to cart
 //	boolean addItemsToOrder();

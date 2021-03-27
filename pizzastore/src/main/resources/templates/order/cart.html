@@ -1,0 +1,41 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="fragments/staticFiles"></th:block>
+
+<body>
+	<div class="container">
+		<th:block th:include="fragments/bodyHeader"></th:block>
+
+		<div class="row">
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item : ${currentOrder.orderItems}">
+						<td th:text="${item.pizzaVariant.pizza.name}"></td>
+						<td th:text="${item.quantity}"></td>
+						<td th:text="${item.totalPrice}"></td>
+						<td>
+							<form th:action="@{/order/cancelItem}" method="post">
+								<input type="hidden" th:value="${item.id}" name="itemId">
+								<button type="submit" class="btn btn-primary">Cancel</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+		<th:block th:include="fragments/footer"></th:block>
+	</div>
+</body>
+
+</html>
