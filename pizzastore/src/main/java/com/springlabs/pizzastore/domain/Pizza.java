@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tbl_pizza")
-public class Pizza {
+public class Pizza extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

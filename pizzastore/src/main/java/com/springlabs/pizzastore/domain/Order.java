@@ -8,7 +8,7 @@ import java.util.StringJoiner;
 
 @Entity
 @Table(name="tbl_order")
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class Order {
     @Column(name = "total")
     private BigDecimal total;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id")
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 

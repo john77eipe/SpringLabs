@@ -1,4 +1,3 @@
-
 <header class="header">
   <h1>Pizza Store</h1>
   <p>One stop shop for all the pizzas in the world.</p>
@@ -9,5 +8,10 @@
   <a href="/pizza/all">Menu</a>
   <a href="#">Contact</a>
   <span sec:authorize="!isFullyAuthenticated()"><a href="/user/loginPage" style="float:right">Login</a></span>
-  <span sec:authorize="isFullyAuthenticated()"><a href="/user/logout" style="float:right">Logout</a></span>
+  <span sec:authorize="isFullyAuthenticated()">
+  <a href="/user/logout" style="float:right">Logout</a>
+  </span>
+  <span sec:authorize="isFullyAuthenticated()">
+  <a href="/order/getCart" style="float:right">Cart</a>
+  </span>
 </nav>

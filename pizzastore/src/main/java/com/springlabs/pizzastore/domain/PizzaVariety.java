@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbl_pizza_variety")
-public class PizzaVariety {
+public class PizzaVariety extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +23,7 @@ public class PizzaVariety {
 	private Long id;
 	
 	@OneToMany
-	@JoinColumn(name = "pizza_variant_id")
+	@JoinColumn(name = "id")
 	private List<PizzaVariant> pizzaVariants;
 
 	@ManyToMany

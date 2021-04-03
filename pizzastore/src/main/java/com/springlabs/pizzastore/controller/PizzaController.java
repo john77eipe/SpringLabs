@@ -10,6 +10,7 @@ import com.springlabs.pizzastore.domain.PizzaVariety;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.springlabs.pizzastore.domain.CustomSecurityUser;
+import com.springlabs.pizzastore.domain.Order;
 import com.springlabs.pizzastore.domain.Pizza;
 import com.springlabs.pizzastore.domain.PizzaVariant;
+import com.springlabs.pizzastore.service.OrderService;
 import com.springlabs.pizzastore.service.PizzaService;
 
 
@@ -32,10 +36,13 @@ public class PizzaController {
 	@Autowired
 	PizzaService pizzaService;
 	
+	@Autowired
+	OrderService orderService;
+	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping("/all")
-    public ModelAndView getAllPizzas(ModelAndView modelAndView) {
+    public ModelAndView getAllPizzas(ModelAndView modelAndView, Authentication authentication) {
 		logger.info("Pizza controller");
 		List<PizzaVariant> pizzaVariants = pizzaService.getAllPizzaVariants();
 		
@@ -43,6 +50,12 @@ public class PizzaController {
 			//TODO: error page redirection
 		}
 		modelAndView.addObject("pizzaVariants", pizzaVariants);
+		if (authentication != null) {
+			CustomSecurityUser customSecurityUser = (CustomSecurityUser) authentication.getPrincipal();
+			Order currentOrder = orderService.getCurrentOrder(customSecurityUser.getId());
+			modelAndView.addObject("currentOrder", currentOrder);
+		}
+		
 		modelAndView.setViewName("pizza/pizzaList");
 		return modelAndView;
     }
