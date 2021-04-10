@@ -39,8 +39,7 @@ public class Order extends BaseEntity {
     @Column(name = "total")
     private BigDecimal total;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
+    @OneToMany(mappedBy = "order", targetEntity = OrderItem.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     public Long getId() {

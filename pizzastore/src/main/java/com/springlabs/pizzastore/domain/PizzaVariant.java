@@ -3,16 +3,7 @@ package com.springlabs.pizzastore.domain;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.StringJoiner;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -47,12 +38,18 @@ public class PizzaVariant extends BaseEntity {
 	private Integer quantityOnSale;
 	
 	@ManyToOne
-	@JoinColumn(name = "pizza_id")
+	@JoinColumn(name = "pizza_id", referencedColumnName = "id")
 	private Pizza pizza;
 
-	@OneToMany
-	@JoinColumn(name = "id")
-	private List<PizzaVariety> pizzaVariety;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="pizzaVariety",
+			joinColumns = {
+				@JoinColumn(name = "pizza_variant_id")
+			},
+			inverseJoinColumns = {
+				@JoinColumn(name = "pizza_option_id")
+			})
+	private List<PizzaOption> pizzaOptionList;
 
 	public PizzaVariant() {
 	}
@@ -66,7 +63,7 @@ public class PizzaVariant extends BaseEntity {
 		this.quantityOnSale = quantityOnSale;
 		this.pizza = pizza;
 	}
-
+	@Override
 	public Long getId() {
 		return id;
 	}
@@ -137,14 +134,6 @@ public class PizzaVariant extends BaseEntity {
 	
 	public void setPizza(Pizza pizza) {
 		this.pizza = pizza;
-	}
-
-	public List<PizzaVariety> getPizzaVariety() {
-		return pizzaVariety;
-	}
-
-	public void setPizzaVariety(List<PizzaVariety> pizzaVariety) {
-		this.pizzaVariety = pizzaVariety;
 	}
 
 }

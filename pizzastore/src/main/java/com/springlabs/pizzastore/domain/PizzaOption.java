@@ -1,6 +1,8 @@
 package com.springlabs.pizzastore.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="tbl_pizza_option")
@@ -16,6 +18,9 @@ public class PizzaOption extends BaseEntity {
 
     @Column(name = "option_value")
     private String optionValue;
+
+    @ManyToMany(mappedBy = "pizzaOptionList")
+	private List<PizzaVariant> pizzaVariantList = new ArrayList<>();
 
 	public PizzaOption() {
 	}

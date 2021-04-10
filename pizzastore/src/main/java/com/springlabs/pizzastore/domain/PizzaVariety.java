@@ -13,17 +13,20 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "tbl_pizza_variety")
-public class PizzaVariety extends BaseEntity {
 
+//@Entity
+//@Table(name = "tbl_pizza_variety")
+public class PizzaVariety
+//		extends BaseEntity
+{
+/*
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	
-	@OneToMany
-	@JoinColumn(name = "id")
+	@ManyToMany
+	@JoinColumn(name = "pizza_variant_id")
 	private List<PizzaVariant> pizzaVariants;
 
 	@ManyToMany
@@ -71,4 +74,6 @@ public class PizzaVariety extends BaseEntity {
 				.add("pizzaOptions=" + pizzaOptions)
 				.toString();
 	}
+
+ */
 }
