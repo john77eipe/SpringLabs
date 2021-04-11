@@ -44,12 +44,12 @@ public class PizzaController {
 	@GetMapping("/all")
     public ModelAndView getAllPizzas(ModelAndView modelAndView, Authentication authentication) {
 		logger.info("Pizza controller");
-		List<PizzaVariant> pizzaVariants = pizzaService.getAllPizzaVariants();
+		List<Pizza> pizzaList = pizzaService.getAllPizzas();
 		
-		if(pizzaVariants.isEmpty()) {
+		if(pizzaList.isEmpty()) {
 			//TODO: error page redirection
 		}
-		modelAndView.addObject("pizzaVariants", pizzaVariants);
+		modelAndView.addObject("pizzaList", pizzaList);
 		if (authentication != null) {
 			CustomSecurityUser customSecurityUser = (CustomSecurityUser) authentication.getPrincipal();
 			Order currentOrder = orderService.getCurrentOrder(customSecurityUser.getId());
@@ -112,9 +112,12 @@ public class PizzaController {
 			@RequestParam(required = true) Integer quantityOnSale,
 			@RequestParam HashMap<String, String> pizzaOptions) {
 		logger.info("Pizza controller");
+		//fetch pizza linked to the variant/sku
 		Pizza pizza = pizzaService.getPizza(pizzaId);
+		//creating new variant/sku for that pizza using the given data
 		PizzaVariant pizzaVariant = new PizzaVariant(sku, price, quantityOnHand, outOfStockThreshold, tax, quantityOnSale, pizza);
 		PizzaVariant pizzaVariantSaved = pizzaService.savePizzaVariant(pizzaVariant);
+		//populating the variety and options mapping
 		List<PizzaVariety> pizzaVarietyList = new ArrayList<>();
 		pizzaOptions.forEach((k, v) -> {
 			PizzaOption pizzaOption = new PizzaOption(k, v);
@@ -122,7 +125,7 @@ public class PizzaController {
 			PizzaVariety pizzaVariety = pizzaService.savePizzaVariety(pizzaOption, pizzaVariantSaved.getId());
 			pizzaVarietyList.add(pizzaVariety);
 		});
-		pizzaVariant.setPizzaVariety(pizzaVarietyList);
+		//pizzaVariant.setPizzaVariety(pizzaVarietyList);
 		return new RedirectView("/pizza/all");
 	}
 }	

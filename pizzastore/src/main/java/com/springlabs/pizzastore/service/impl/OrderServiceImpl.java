@@ -14,7 +14,6 @@ import com.springlabs.pizzastore.domain.Order;
 import com.springlabs.pizzastore.domain.OrderItem;
 import com.springlabs.pizzastore.domain.Pizza;
 import com.springlabs.pizzastore.domain.PizzaVariant;
-import com.springlabs.pizzastore.repository.impl.JpaOrderItemRepository;
 import com.springlabs.pizzastore.repository.impl.JpaOrderRepository;
 import com.springlabs.pizzastore.service.OrderService;
 
@@ -25,9 +24,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	JpaOrderRepository jpaOrderRepository;
-	
-	@Autowired
-	JpaOrderItemRepository jpaOrderItemRepository; 
 
 	@Override
 	public Pizza orderPizza(Pizza pizza) {
@@ -53,9 +49,9 @@ public class OrderServiceImpl implements OrderService {
 		BigDecimal total = currentOrder.getOrderItems().stream().map(item1 -> item1.getTotalPrice()).reduce(BigDecimal.ZERO, BigDecimal::add);
 		currentOrder.setTotal(total);
 		currentOrder.setShippingCost(BigDecimal.TEN);
-		jpaOrderItemRepository.save(item);
-//		Order order = jpaOrderRepository.save(currentOrder);
-		return currentOrder;
+		currentOrder.setUserId(userId);
+		Order order = jpaOrderRepository.save(currentOrder);
+		return order;
 	}
 	
 	@Override
@@ -66,9 +62,10 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Boolean cancelItemById(Long itemId) {
 		logger.info(itemId.toString());
-		Optional<OrderItem> item = jpaOrderItemRepository.findById(itemId);
-		logger.info(item.toString());
-		item.ifPresent(item1 -> jpaOrderItemRepository.delete(item1));
+		//TODO: this logic will have to change
+//		Optional<OrderItem> item = jpaOrderItemRepository.findById(itemId);
+//		logger.info(item.toString());
+//		item.ifPresent(item1 -> jpaOrderItemRepository.delete(item1));
 		return Boolean.TRUE;
 	}
 	

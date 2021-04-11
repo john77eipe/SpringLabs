@@ -23,12 +23,12 @@ public class OrderItem extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name="order_id", referencedColumnName = "id")
+    @JoinColumn(name="pizza_variant_id", referencedColumnName = "id")
     private PizzaVariant pizzaVariant;
 
     @Column(name = "unit_price")

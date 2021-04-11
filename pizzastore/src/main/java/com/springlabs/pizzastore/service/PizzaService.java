@@ -1,6 +1,7 @@
 package com.springlabs.pizzastore.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.springlabs.pizzastore.domain.Pizza;
 import com.springlabs.pizzastore.domain.PizzaOption;
@@ -45,11 +46,11 @@ public interface PizzaService {
 	 */
 	List<PizzaVariant> getAllPizzaVariants();
 
-
 	PizzaVariant savePizzaVariant(final PizzaVariant pizza);
 
 	PizzaOption savePizzaOption(final PizzaOption pizzaOption);
 
 	PizzaVariety savePizzaVariety(final PizzaOption pizzaOption, final Long pizzaVariantId);
 
+    Map<PizzaVariant, List<PizzaOption>> getPizzaOptions(List<PizzaVariant> pizzaVariants);
 }

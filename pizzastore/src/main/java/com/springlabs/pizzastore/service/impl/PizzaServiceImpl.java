@@ -1,9 +1,11 @@
 package com.springlabs.pizzastore.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.springlabs.pizzastore.domain.PizzaOption;
 import com.springlabs.pizzastore.domain.PizzaVariety;
+import com.springlabs.pizzastore.repository.impl.JpaPizzaOptionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +29,16 @@ public class PizzaServiceImpl implements PizzaService {
     @Autowired
     private JpaPizzaVariantRepository jpaPizzaVariantRepository;
 
-    public PizzaServiceImpl(JpaPizzaRepository pizzaRepository) {
-        this.pizzaRepository = pizzaRepository;
-    }
+    @Autowired
+    private JpaPizzaOptionRepository jpaPizzaOptionRepository;
 
+    public PizzaServiceImpl(JpaPizzaRepository pizzaRepository,
+                            JpaPizzaVariantRepository jpaPizzaVariantRepository,
+                            JpaPizzaOptionRepository jpaPizzaOptionRepository) {
+        this.pizzaRepository = pizzaRepository;
+        this.jpaPizzaVariantRepository = jpaPizzaVariantRepository;
+        this.jpaPizzaOptionRepository = jpaPizzaOptionRepository;
+    }
 
     @Override
     public List<Pizza> getAllPizzas() {
@@ -76,17 +84,29 @@ public class PizzaServiceImpl implements PizzaService {
 	}
 
     @Override
-    public PizzaVariant savePizzaVariant(PizzaVariant pizza) {
-        return null;
+    public PizzaVariant savePizzaVariant(PizzaVariant pizzaVariant) {
+        logger.debug("savePizzaVariant");
+        return jpaPizzaVariantRepository.save(pizzaVariant);
     }
 
     @Override
     public PizzaOption savePizzaOption(PizzaOption pizzaOption) {
-        return null;
+        logger.debug("savePizzaOption");
+        return jpaPizzaOptionRepository.save(pizzaOption);
     }
 
     @Override
     public PizzaVariety savePizzaVariety(PizzaOption pizzaOption, Long pizzaVariantId) {
+        return null;
+    }
+
+    @Override
+    public Map<PizzaVariant, List<PizzaOption>> getPizzaOptions(List<PizzaVariant> pizzaVariants) {
+        for(PizzaVariant pizzaVariant: pizzaVariants) {
+//            List<PizzaVariety> pizzaVarieties = jpaPizzaVarietyRepository.findByVariantId(pizzaVariant.getId());
+//            List<PizzaOption> pizzaOptions = pizzaVarieties.stream().map(p -> p.getPizzaOptions()).collect();
+
+        }
         return null;
     }
 
