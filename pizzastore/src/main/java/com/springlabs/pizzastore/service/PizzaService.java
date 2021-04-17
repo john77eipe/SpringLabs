@@ -6,7 +6,6 @@ import java.util.Map;
 import com.springlabs.pizzastore.domain.Pizza;
 import com.springlabs.pizzastore.domain.PizzaOption;
 import com.springlabs.pizzastore.domain.PizzaVariant;
-import com.springlabs.pizzastore.domain.PizzaVariety;
 
 public interface PizzaService {
 	
@@ -50,7 +49,5 @@ public interface PizzaService {
 
 	PizzaOption savePizzaOption(final PizzaOption pizzaOption);
 
-	PizzaVariety savePizzaVariety(final PizzaOption pizzaOption, final Long pizzaVariantId);
-
-    Map<PizzaVariant, List<PizzaOption>> getPizzaOptions(List<PizzaVariant> pizzaVariants);
+	PizzaOption getPizzaOption(final String optionType, final String optionValue);
 }

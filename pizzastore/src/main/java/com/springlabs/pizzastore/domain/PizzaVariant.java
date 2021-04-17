@@ -72,6 +72,13 @@ public class PizzaVariant extends BaseEntity {
 		this.id = id;
 	}
 
+	public List<PizzaOption> getPizzaOptionList() {
+		return pizzaOptionList;
+	}
+
+	public void setPizzaOptionList(List<PizzaOption> pizzaOptionList) {
+		this.pizzaOptionList = pizzaOptionList;
+	}
 	public String getSku() {
 		return sku;
 	}
@@ -136,4 +143,19 @@ public class PizzaVariant extends BaseEntity {
 		this.pizza = pizza;
 	}
 
+	@Override
+	public String toString() {
+		return new StringJoiner(", ", PizzaVariant.class.getSimpleName() + "[", "]")
+				.add("id=" + id)
+				.add("sku='" + sku + "'")
+				.add("price=" + price)
+				.add("priceWithTax=" + priceWithTax)
+				.add("quantityOnHand=" + quantityOnHand)
+				.add("outOfStockThreshold=" + outOfStockThreshold)
+				.add("tax=" + tax)
+				.add("quantityOnSale=" + quantityOnSale)
+				.add("pizza=" + pizza)
+				.add("pizzaOptionList=" + pizzaOptionList)
+				.toString();
+	}
 }

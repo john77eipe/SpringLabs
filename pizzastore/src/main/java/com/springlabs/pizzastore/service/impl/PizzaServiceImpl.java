@@ -2,13 +2,14 @@ package com.springlabs.pizzastore.service.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.springlabs.pizzastore.domain.PizzaOption;
-import com.springlabs.pizzastore.domain.PizzaVariety;
 import com.springlabs.pizzastore.repository.impl.JpaPizzaOptionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.springlabs.pizzastore.domain.Pizza;
@@ -96,18 +97,11 @@ public class PizzaServiceImpl implements PizzaService {
     }
 
     @Override
-    public PizzaVariety savePizzaVariety(PizzaOption pizzaOption, Long pizzaVariantId) {
-        return null;
-    }
-
-    @Override
-    public Map<PizzaVariant, List<PizzaOption>> getPizzaOptions(List<PizzaVariant> pizzaVariants) {
-        for(PizzaVariant pizzaVariant: pizzaVariants) {
-//            List<PizzaVariety> pizzaVarieties = jpaPizzaVarietyRepository.findByVariantId(pizzaVariant.getId());
-//            List<PizzaOption> pizzaOptions = pizzaVarieties.stream().map(p -> p.getPizzaOptions()).collect();
-
-        }
-        return null;
+    public PizzaOption getPizzaOption(final String optionType, final String optionValue) {
+        logger.debug("getPizzaOption");
+        Example<PizzaOption> pizzaOptionExample = Example.of(new PizzaOption(optionType, optionValue));
+        Optional<PizzaOption> pizzaOption = jpaPizzaOptionRepository.findOne(pizzaOptionExample);
+        return pizzaOption.get();
     }
 
 }

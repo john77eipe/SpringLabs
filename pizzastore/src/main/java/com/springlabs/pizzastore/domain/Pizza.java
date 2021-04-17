@@ -62,13 +62,21 @@ public class Pizza extends BaseEntity {
 		this.description = description;
 	}
 
+	public List<PizzaVariant> getPizzaVariantList() {
+		return pizzaVariantList;
+	}
+
+	public void setPizzaVariantList(List<PizzaVariant> pizzaVariantList) {
+		this.pizzaVariantList = pizzaVariantList;
+	}
+
 	@Override
 	public String toString() {
 		return new StringJoiner(", ", Pizza.class.getSimpleName() + "[", "]")
 				.add("id=" + id)
 				.add("name='" + name + "'")
 				.add("description='" + description + "'")
+				.add("pizzaVariantList=" + pizzaVariantList)
 				.toString();
 	}
-
 }

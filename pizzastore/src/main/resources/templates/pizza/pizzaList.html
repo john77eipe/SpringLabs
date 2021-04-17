@@ -18,6 +18,11 @@
 					<h6 th:text="${pizzaVariant.id}"></h6>
 					<h2><a th:href = "@{'/pizza/' + ${pizzaVariant.id}}" th:text="${pizzaVariant.pizza.name}"></a></h2>
 					<h5 th:text="${pizzaVariant.price}">Price: $ </h5>
+
+					<div th:each="pizzaOption : ${pizzaVariant.pizzaOptionList}">
+						<span th:text="${pizzaOption.optionType}"></span>
+						<span th:text="${pizzaOption.optionValue}">:</span>
+					</div>
 					<div align="right">
 						<form th:action="@{/order/addToCart}" method="post">
 							<input type="hidden" th:value="${pizzaVariant.id}" name="pizzaVariantId">

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.springlabs.pizzastore.domain.PizzaOption;
-import com.springlabs.pizzastore.domain.PizzaVariety;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class PizzaController {
 	
 	@GetMapping("/all")
     public ModelAndView getAllPizzas(ModelAndView modelAndView, Authentication authentication) {
-		logger.info("Pizza controller");
+		logger.info("Pizza controller - getAllPizzas");
 		List<Pizza> pizzaList = pizzaService.getAllPizzas();
 		
 		if(pizzaList.isEmpty()) {
@@ -116,16 +115,21 @@ public class PizzaController {
 		Pizza pizza = pizzaService.getPizza(pizzaId);
 		//creating new variant/sku for that pizza using the given data
 		PizzaVariant pizzaVariant = new PizzaVariant(sku, price, quantityOnHand, outOfStockThreshold, tax, quantityOnSale, pizza);
-		PizzaVariant pizzaVariantSaved = pizzaService.savePizzaVariant(pizzaVariant);
 		//populating the variety and options mapping
-		List<PizzaVariety> pizzaVarietyList = new ArrayList<>();
+		List<PizzaOption> pizzaOptionList = new ArrayList<>();
 		pizzaOptions.forEach((k, v) -> {
-			PizzaOption pizzaOption = new PizzaOption(k, v);
-			//map PizzaVariant and Options
-			PizzaVariety pizzaVariety = pizzaService.savePizzaVariety(pizzaOption, pizzaVariantSaved.getId());
-			pizzaVarietyList.add(pizzaVariety);
+			//create pizzaOption if it doesn't exists
+			PizzaOption pizzaOption = pizzaService.getPizzaOption(k, v);
+			if(pizzaOption==null) {
+				pizzaOption = pizzaService.savePizzaOption(pizzaOption);
+			}
+			pizzaOptionList.add(pizzaOption);
 		});
-		//pizzaVariant.setPizzaVariety(pizzaVarietyList);
+		//map PizzaVariant and Options
+		pizzaVariant.setPizzaOptionList(pizzaOptionList);
+
+		PizzaVariant pizzaVariantSaved = pizzaService.savePizzaVariant(pizzaVariant);
+		logger.info(pizzaVariantSaved.toString());
 		return new RedirectView("/pizza/all");
 	}
 }	

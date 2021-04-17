@@ -30,6 +30,6 @@ spring:
        url: jdbc:mysql://localhost:3306/store
        username: root
        password: Passw0rd
-       initialization-mode: always
+       initialization-mode: never #always
        data: classpath*:db/mysql/data.sql
        schema: classpath*:db/mysql/schema.sql
