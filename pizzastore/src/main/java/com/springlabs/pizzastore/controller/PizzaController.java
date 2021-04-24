@@ -46,8 +46,10 @@ public class PizzaController {
 		List<Pizza> pizzaList = pizzaService.getAllPizzas();
 		
 		if(pizzaList.isEmpty()) {
+			logger.error("pizzaList is Empty");
 			//TODO: error page redirection
 		}
+		logger.info("Pizza list: {}", pizzaList);
 		modelAndView.addObject("pizzaList", pizzaList);
 		if (authentication != null) {
 			CustomSecurityUser customSecurityUser = (CustomSecurityUser) authentication.getPrincipal();

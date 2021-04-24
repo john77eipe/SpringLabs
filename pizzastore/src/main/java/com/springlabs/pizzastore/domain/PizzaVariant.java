@@ -1,5 +1,7 @@
 package com.springlabs.pizzastore.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.StringJoiner;
@@ -36,18 +38,19 @@ public class PizzaVariant extends BaseEntity {
 
 	@Column(name = "qty_on_sale")
 	private Integer quantityOnSale;
-	
+
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "pizza_id", referencedColumnName = "id")
 	private Pizza pizza;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="pizzaVariety",
+	@JoinTable(name="tbl_pizza_variety",
 			joinColumns = {
-				@JoinColumn(name = "pizza_variant_id")
+				@JoinColumn(name = "pizza_variant_id", referencedColumnName = "id")
 			},
 			inverseJoinColumns = {
-				@JoinColumn(name = "pizza_option_id")
+				@JoinColumn(name = "pizza_option_id", referencedColumnName = "id")
 			})
 	private List<PizzaOption> pizzaOptionList;
 

@@ -1,5 +1,7 @@
 package com.springlabs.pizzastore.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class Pizza extends BaseEntity {
 	@Column(name = "`desc`")
 	private String description;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "pizza", targetEntity = PizzaVariant.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<PizzaVariant> pizzaVariantList = new ArrayList<>();
 
