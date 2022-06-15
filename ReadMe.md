@@ -12,17 +12,17 @@ The Spring PetClinic is a sample application designed to show how the Spring sta
 
 Have a look here: https://spring-petclinic.github.io/
 
-### What is this SpringLabs about?
+### What is SpringLabs about?
 
 SpringLabs will encompass a lot more and one of them is developing a Spring application based on a fictional usecase. This will sound a lot similar to PetClinic but 
 
-- we will be covering the whole process like a real-time project and 
-- expanding more on the usecase and integrations and
-- journal the development process - essentially the challenges and observations as we developed it
+- we will be covering the whole process and software development cycle like a real-time project. We will have phases and each phase will have multiple sprints.  
+- expanding more on the usecases and integrations 
+- journal the development process - essentially the challenges and observations to benefit other developers
 
 We will start with a **simple pizza store usecase** for demonstration.
 
-This will stand out as a reference implementation using the latest spring stack and also tutorial for anyone who wants to learn Spring.
+This will stand out as a reference implementation using the latest spring stack and also as a tutorial for anyone who wants to learn Spring.
 
 
 
@@ -32,7 +32,7 @@ We will develop a pizza store web application in multiple phases. Each phase wil
 
 The use case is simple.
 
-The fictional customer needs a online e-commerce store for his pizza outlet.
+> A fictional customer needs a online e-commerce store for his pizza outlet.
 
 ## Phase 1 deliverables
 
