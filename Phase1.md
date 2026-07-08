@@ -784,3 +784,45 @@ Commited on branch: [s4-remaining-features-spring-boot-mvn](https://github.com/j
   Well doesn't MySQL consider the common -- as comments? Well anser is yes and no.
   The catch here is that it has to be `-- ` with a space succeeding.
 
+
+
+## Sprint 5: Refactoring and Code Fixes
+
+Sprint 4 closed out the Phase 1 usecases but in a hurry. The last few commits ("Fixed few issues and added code for the pizza model") left behind loose ends - half-wired entities, TODOs, commented-out code and a build that is still riding on a snapshot version of Spring Boot. This sprint is a cleanup and stabilization sprint: no new features, only refactoring, fixing and finishing what was started.
+
+### Objectives:
+
+1. Upgrade the build to a stable foundation
+   - Move from `2.2.0.BUILD-SNAPSHOT` to a stable Spring Boot 2.2.x GA release and drop the snapshot/milestone repositories from the pom. Snapshot builds served us well at the start but they are not reproducible - the same pom can resolve differently on different days.
+   - Bump `java.version` from 1.8 to 11. We have been compiling against 1.8 on a JDK 11 machine since Sprint 1; there is no reason to hold back anymore.
+
+2. Complete the pizza SKU model integration
+   - The `PizzaVariety`, `PizzaVariant` and `PizzaOption` entities and their repositories were added at the very end of Sprint 4 but are not fully wired into the service layer or the screens.
+   - Surface variants and options on the pizza (pdp) screen and carry the selected variant into the order items.
+
+3. Repository layer cleanup
+   - Remove commented-out method declarations from the `Jpa*Repository` interfaces.
+   - Review the custom repository interface + Spring Data interface split (`PizzaRepository` / `JpaPizzaRepository` etc.) and simplify where the extra abstraction buys us nothing.
+
+4. Error handling done properly
+   - Resolve the `//TODO: error page redirection` items in `PizzaController`.
+   - Introduce a `@ControllerAdvice` based global exception handler instead of per-controller try/catch blocks, with a proper error view.
+
+5. Validation
+   - Add bean validation (`javax.validation` annotations) to `SignupRequestDTO` and the admin pizza forms, and render field errors on the Thymeleaf templates.
+
+6. Service layer review
+   - Audit `@Transactional` boundaries - order placement touches multiple repositories and must be atomic.
+   - Remove auto-generated constructor stubs and dead code from the domain classes (e.g. `Pizza`).
+
+7. CI
+   - The GitHub Actions workflow (`ci.yml`) was added after Sprint 4; make sure the build and tests run green on every push and pull request.
+
+### Source code:
+
+Commited on branch: [s5-refactor-codefixes-spring-boot-mvn](https://github.com/john77eipe/SpringLabs/tree/s5-refactor-codefixes-spring-boot-mvn)
+
+### Challenges:
+
+To be documented as development progresses.
+
